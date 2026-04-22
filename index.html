@@ -46,12 +46,30 @@
           <div class="scroll-row" id="scroll-row-3"></div>
         </div>
 
+        <span class="title-badge">2026 NEW · 猫格学</span>
         <h1 class="title-pixel">CatTi</h1>
-        <p class="title-sub">· 猫格测试 · 15 道题找到你的本命猫</p>
+        <p class="title-sub">· 猫格测试 ·</p>
 
-        <div class="intro-copy">
-          <p>你以为你在测试，其实是一只老猫在观察你。</p>
-          <p>放松点，这里没有标准答案 —— 只有最像你的那只猫。</p>
+        <div class="intro-hook">
+          <p class="hook-strike">SBTI 已经过时</p>
+          <p class="hook-main"><span class="hook-main-pixel">CatTI</span><span class="hook-main-zh">来了</span></p>
+        </div>
+
+        <div class="intro-stats" aria-label="测试规格">
+          <div class="stat">
+            <span class="stat-num">15</span>
+            <span class="stat-label">道题</span>
+          </div>
+          <span class="stat-dot" aria-hidden="true"></span>
+          <div class="stat">
+            <span class="stat-num">4</span>
+            <span class="stat-label">维度</span>
+          </div>
+          <span class="stat-dot" aria-hidden="true"></span>
+          <div class="stat">
+            <span class="stat-num">24</span>
+            <span class="stat-label">只猫</span>
+          </div>
         </div>
 
         <button class="btn btn-primary btn-lg" id="btn-start" type="button">
@@ -59,7 +77,7 @@
           <span class="btn-arrow" aria-hidden="true">→</span>
         </button>
 
-        <p class="intro-hint">约 2 分钟 · 将为你匹配 24 只猫中最相似的一只</p>
+        <p class="intro-hint">约 2 分钟 · 测完生成你的专属分享图</p>
       </div>
     </section>
 
@@ -115,6 +133,16 @@
         <h2 class="result-name">
           <span id="result-name-title"></span><span id="result-name"></span>
         </h2>
+        <dl class="result-meta">
+          <div class="result-meta-row">
+            <dt>代号</dt>
+            <dd id="result-meta-code"></dd>
+          </div>
+          <div class="result-meta-row">
+            <dt>品种原型</dt>
+            <dd id="result-meta-breed"></dd>
+          </div>
+        </dl>
         <p class="result-slogan" id="result-slogan"></p>
       </div>
 
@@ -128,7 +156,21 @@
       <h3 class="result-section-title">喵格解读</h3>
       <div class="result-interpretation" id="result-interpretation"></div>
 
-      <h3 class="result-section-title">维度分析</h3>
+      <h3 class="result-section-title">年轻人限定指标</h3>
+      <div class="highlight-cards">
+        <div class="highlight-card highlight-card-md">
+          <span class="highlight-card-label">恋爱脑指数</span>
+          <span class="highlight-card-value" id="result-md-value">--</span>
+          <span class="highlight-card-note" id="result-md-note">--</span>
+        </div>
+        <div class="highlight-card highlight-card-nz">
+          <span class="highlight-card-label">内耗指数</span>
+          <span class="highlight-card-value" id="result-nz-value">--</span>
+          <span class="highlight-card-note" id="result-nz-note">--</span>
+        </div>
+      </div>
+
+      <h3 class="result-section-title">维度雷达</h3>
       <div class="radar-wrap">
         <canvas id="radar-canvas" width="600" height="600" aria-label="维度雷达图"></canvas>
       </div>
@@ -152,6 +194,19 @@
         <button class="btn btn-ghost" id="btn-restart" type="button">再测一次</button>
       </div>
 
+      <a class="xhs-promo"
+         href="https://xhslink.com/m/1RQHBYkZljM"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="跳转作者的小红书主页">
+        <span class="xhs-badge" aria-hidden="true">小红书</span>
+        <span class="xhs-text">
+          <span class="xhs-title">作者的小红书</span>
+          <span class="xhs-sub">更多测试正在路上</span>
+        </span>
+        <span class="xhs-arrow" aria-hidden="true">→</span>
+      </a>
+
       <p class="result-footer-note">愿你和这只猫一样，有自己的节奏。</p>
     </section>
 
@@ -172,6 +227,16 @@
         <div class="sc-name">
           <span id="sc-name-title"></span><span id="sc-name"></span>
         </div>
+        <dl class="sc-meta-list">
+          <div class="sc-meta-row">
+            <dt>代号</dt>
+            <dd id="sc-meta-code"></dd>
+          </div>
+          <div class="sc-meta-row">
+            <dt>品种原型</dt>
+            <dd id="sc-meta-breed"></dd>
+          </div>
+        </dl>
         <div class="sc-slogan" id="sc-slogan"></div>
       </div>
       <div class="sc-interpretation" id="sc-interpretation"></div>

@@ -42,8 +42,10 @@
     isAnimating: false
   };
 
-  const DIM_IDX = { EI: 0, PL: 1, TF: 2, JS: 3 };
-  const DIM_LABELS = ['外向度', '主动度', '理智度', '有序度'];
+  const DIM_IDX = { EI: 0, PL: 1, TF: 2, JS: 3, MD: 4, NZ: 5 };
+  // SBTI-style dimension labels (更戏剧化/网感化)
+  const DIM_LABELS = ['社牛浓度', '发动机转速', '冷静抬杠度', '强迫症指数', '恋爱脑指数', '内耗指数'];
+  const DIM_COUNT = DIM_LABELS.length;
   const ANIM_MS = 280;
   const FLASH_MS = 320;
   const NEXT_DELAY = 260;
@@ -78,7 +80,13 @@
     resultImage:          $('result-image'),
     resultNameTitle:      $('result-name-title'),
     resultName:           $('result-name'),
+    resultMetaCode:       $('result-meta-code'),
+    resultMetaBreed:      $('result-meta-breed'),
     resultSlogan:         $('result-slogan'),
+    resultMdValue:        $('result-md-value'),
+    resultMdNote:         $('result-md-note'),
+    resultNzValue:        $('result-nz-value'),
+    resultNzNote:         $('result-nz-note'),
     resultQuote:          $('result-quote'),
     resultTags:           $('result-tags'),
     resultInterpretation: $('result-interpretation'),
@@ -96,6 +104,8 @@
     scAvatar:      $('sc-avatar'),
     scNameTitle:   $('sc-name-title'),
     scName:        $('sc-name'),
+    scMetaCode:    $('sc-meta-code'),
+    scMetaBreed:   $('sc-meta-breed'),
     scSlogan:      $('sc-slogan'),
     scInterpretation: $('sc-interpretation')
   };
@@ -378,7 +388,7 @@
   // RESULT
   // ------------------------------------------------------------
   function computeResult() {
-    const userVec = [0, 0, 0, 0];
+    const userVec = new Array(DIM_COUNT).fill(0);
     state.answers.forEach(function (a) {
       if (!a) return;
       const idx = DIM_IDX[a.dim];
@@ -388,9 +398,9 @@
 
     let best = null, bestDist = Infinity;
     state.cats.forEach(function (cat) {
-      const vec = Array.isArray(cat.vector) ? cat.vector : [0, 0, 0, 0];
+      const vec = Array.isArray(cat.vector) ? cat.vector : new Array(DIM_COUNT).fill(0);
       let s = 0;
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < DIM_COUNT; i++) {
         const d = (vec[i] || 0) - userVec[i];
         s += d * d;
       }
@@ -411,8 +421,11 @@
     el.resultImage.src = cat.image || '';
     el.resultImage.alt = cat.name || '';
 
-    el.resultNameTitle.textContent = cat.name_title || '';
+    // Add a space between code and name ("WILD" + " " + "野性基因-孟加拉猫")
+    el.resultNameTitle.textContent = cat.name_title ? cat.name_title + ' ' : '';
     el.resultName.textContent      = cat.name || '';
+    el.resultMetaCode.textContent  = cat.name_title || '';
+    el.resultMetaBreed.textContent = cat.breed || '';
     el.resultSlogan.textContent    = cat.slogan || '';
 
     // first sentence → quote; rest → body
@@ -434,6 +447,14 @@
 
     // Draw radar chart
     drawRadar(el.radarCanvas, state.userVec);
+
+    // Highlight cards: 恋爱脑指数 (M) + 内耗指数 (N)
+    const mdPct = Math.round(((state.userVec[4] + 4) / 8) * 100);
+    const nzPct = Math.round(((state.userVec[5] + 4) / 8) * 100);
+    if (el.resultMdValue) el.resultMdValue.textContent = mdPct + '%';
+    if (el.resultNzValue) el.resultNzValue.textContent = nzPct + '%';
+    if (el.resultMdNote)  el.resultMdNote.textContent  = mdNoteFor(mdPct);
+    if (el.resultNzNote)  el.resultNzNote.textContent  = nzNoteFor(nzPct);
 
     // reset share button state
     el.btnShare.classList.remove('is-copied');
@@ -463,8 +484,8 @@
 
     const cx = logicalSize / 2;
     const cy = logicalSize / 2;
-    const r  = Math.min(cx, cy) - 48;
-    const axisCount = 4;
+    const r  = Math.min(cx, cy) - 56;
+    const axisCount = DIM_COUNT;
 
     // Normalize [-4, +4] → [0, 1]
     const norm = vector.map(v => Math.max(0, Math.min(1, (v + 4) / 8)));
@@ -546,6 +567,24 @@
   }
 
   // ------------------------------------------------------------
+  // Highlight card copy — 恋爱脑指数 / 内耗指数
+  // ------------------------------------------------------------
+  function mdNoteFor(pct) {
+    if (pct >= 80) return '月亮代表我的心,爱上就上头到底';
+    if (pct >= 60) return '想爱但还带着一点点理智';
+    if (pct >= 40) return '先稳着,不轻易主动营业';
+    if (pct >= 20) return '观察三天再决定要不要心动';
+    return '自带反恋爱金甲护体';
+  }
+  function nzNoteFor(pct) {
+    if (pct >= 80) return '上一秒下一秒都在心里开庭';
+    if (pct >= 60) return '会反刍,但两小时内能自愈';
+    if (pct >= 40) return '偶尔想得多,但吐得掉';
+    if (pct >= 20) return '想得开,忘得也快';
+    return '佛到万物皆可,不疑不虑';
+  }
+
+  // ------------------------------------------------------------
   // Share / Restart
   // ------------------------------------------------------------
   async function shareLink() {
@@ -602,8 +641,10 @@
 
     // populate simplified share card
     el.scAvatar.src = cat.image || '';
-    el.scNameTitle.textContent   = cat.name_title || '';
+    el.scNameTitle.textContent   = cat.name_title ? cat.name_title + ' ' : '';
     el.scName.textContent        = cat.name || '';
+    el.scMetaCode.textContent    = cat.name_title || '';
+    el.scMetaBreed.textContent   = cat.breed || '';
     el.scSlogan.textContent      = cat.slogan || '';
     el.scInterpretation.textContent = cat.interpretation || '';
 

@@ -40,19 +40,6 @@
   },
   {
     "id": 4,
-    "dim": "EI",
-    "text": "铲屎官加班一整天回家,推门那一秒,你的画面是——",
-    "scenario_emoji": "🚪",
-    "bubble": "开门的瞬间最不会撒谎",
-    "avatar": "images/ragdoll.png",
-    "options": [
-      {"label": "飞奔而出,边跑边嗷嗷念叨,尾巴直冲天花板", "score": 1},
-      {"label": "抬眼瞄一下,慢悠悠走过去蹭一腿再走开", "score": 0},
-      {"label": "眼都不抬,继续我的午睡大业,爱谁谁", "score": -1}
-    ]
-  },
-  {
-    "id": 5,
     "dim": "PL",
     "text": "凌晨3:47，你的精神状态是——",
     "scenario_emoji": "🌙",
@@ -65,7 +52,7 @@
     ]
   },
   {
-    "id": 6,
+    "id": 5,
     "dim": "PL",
     "text": "逗猫棒在你眼前晃了30秒。你的反应是——",
     "scenario_emoji": "🎣",
@@ -78,20 +65,7 @@
     ]
   },
   {
-    "id": 7,
-    "dim": "PL",
-    "text": "你选了个新位置开始睡午觉,五分钟后感觉不太对——",
-    "scenario_emoji": "😴",
-    "bubble": "舒服比什么都重要吗",
-    "avatar": "images/garfield.png",
-    "options": [
-      {"label": "立马换地,世界那么大总有更完美的窝", "score": 1},
-      {"label": "凑合再躺一会儿,懒得挪", "score": 0},
-      {"label": "不对就不对吧,起身比将就更难受", "score": -1}
-    ]
-  },
-  {
-    "id": 8,
+    "id": 6,
     "dim": "PL",
     "text": "桌上有只苍蝇在飞,铲屎官喊你去处理。你的反应——",
     "scenario_emoji": "🪰",
@@ -104,7 +78,7 @@
     ]
   },
   {
-    "id": 9,
+    "id": 7,
     "dim": "TF",
     "text": "「只要我够冷静,一切问题都能被分析清楚。」这句话——",
     "scenario_emoji": "🧠",
@@ -117,7 +91,7 @@
     ]
   },
   {
-    "id": 10,
+    "id": 8,
     "dim": "TF",
     "text": "铲屎官最近失恋,每天晚上对着天花板叹气。你——",
     "scenario_emoji": "💔",
@@ -130,7 +104,7 @@
     ]
   },
   {
-    "id": 11,
+    "id": 9,
     "dim": "TF",
     "text": "另一只流浪猫蹲在你家门口求收编,看起来挺可怜。你的第一反应——",
     "scenario_emoji": "🥺",
@@ -143,20 +117,7 @@
     ]
   },
   {
-    "id": 12,
-    "dim": "TF",
-    "text": "这题其实没有具体场景,请凭本能选一个——",
-    "scenario_emoji": "🎲",
-    "bubble": "没题干的时候你更像你",
-    "avatar": "images/sphynx.png",
-    "options": [
-      {"label": "既然没场景,逻辑告诉我选A最安全", "score": 1},
-      {"label": "盲选B是一种猫的智慧", "score": 0},
-      {"label": "心告诉我选哪个就选哪个,不问为什么", "score": -1}
-    ]
-  },
-  {
-    "id": 13,
+    "id": 10,
     "dim": "JS",
     "text": "你的铲屎官把饭推迟了27分钟。你的反应——",
     "scenario_emoji": "🕑",
@@ -169,7 +130,7 @@
     ]
   },
   {
-    "id": 14,
+    "id": 11,
     "dim": "JS",
     "text": "你的玩具和窝,是按照——",
     "scenario_emoji": "🧸",
@@ -182,7 +143,7 @@
     ]
   },
   {
-    "id": 15,
+    "id": 12,
     "dim": "JS",
     "text": "「随性」这个词,在你听来——",
     "scenario_emoji": "🌀",
@@ -192,6 +153,84 @@
       {"label": "像赞美,但我更享受把事情安排得明明白白", "score": 1},
       {"label": "不错的形容,但我也不是完全没底线", "score": 0},
       {"label": "正是我本人,请继续夸", "score": -1}
+    ]
+  },
+  {
+    "id": 13,
+    "dim": "MD",
+    "text": "铲屎官今天太忙,忘了按时给你开罐头。你的内心戏是——",
+    "scenario_emoji": "🥫",
+    "bubble": "失控的那一秒,最看得清你",
+    "avatar": "images/calico.png",
+    "options": [
+      {"label": "是不是不爱我了?我是不是做错了什么?反思三小时起步", "score": 1},
+      {"label": "轻哼一声表达不满,贴个脸让他长点记性", "score": 0},
+      {"label": "该吃吃该睡睡,他忙他的,我忙我的,各自人生", "score": -1}
+    ]
+  },
+  {
+    "id": 14,
+    "dim": "MD",
+    "text": "铲屎官在视频里疯狂夸另一只猫,你的反应——",
+    "scenario_emoji": "📹",
+    "bubble": "吃醋的瞬间你最真实",
+    "avatar": "images/siamese.png",
+    "options": [
+      {"label": "当场蹦到他脸上抢占视频C位,谁才是正宫一目了然", "score": 1},
+      {"label": "默默坐到他脚边蹭一下,悄悄提醒他家里还有朕", "score": 0},
+      {"label": "随便,他爱夸谁夸谁,我正忙着观察窗外的麻雀", "score": -1}
+    ]
+  },
+  {
+    "id": 15,
+    "dim": "MD",
+    "text": "铲屎官出差两天,临走前忘了跟你告别。你——",
+    "scenario_emoji": "🧳",
+    "bubble": "距离是放大镜,照出你的在意",
+    "avatar": "images/ragdoll.png",
+    "options": [
+      {"label": "蹲在门口等一整天,饭都吃不下,魂牵梦萦", "score": 1},
+      {"label": "前几小时没事,第二天开始略烦躁,疯狂盯玄关", "score": 0},
+      {"label": "诶?他走了吗?我刚才一直在睡,没注意", "score": -1}
+    ]
+  },
+  {
+    "id": 16,
+    "dim": "NZ",
+    "text": "铲屎官误会是你把花瓶打碎,但其实是另一只干的。你——",
+    "scenario_emoji": "🏺",
+    "bubble": "被误解的那一秒,心里在演什么剧",
+    "avatar": "images/scottish_fold.png",
+    "options": [
+      {"label": "躲角落里演完整部《我不配》连续剧,循环自我质疑", "score": 1},
+      {"label": "生下闷气,主动去蹭另一只的屁股暗示它主动招", "score": 0},
+      {"label": "想这么多干嘛,清白它自己会来,我先把今天的瞌睡补上", "score": -1}
+    ]
+  },
+  {
+    "id": 17,
+    "dim": "NZ",
+    "text": "刚才撸毛时,铲屎官好像没撸下巴,只撸了背。这件事——",
+    "scenario_emoji": "💭",
+    "bubble": "小事里藏着最大的心理剧",
+    "avatar": "images/russian_blue.png",
+    "options": [
+      {"label": "循环播放50遍:他是不是对我不那么用心了?背后什么意思?", "score": 1},
+      {"label": "嗯哼了一声,心里有点小在意但没到纠结级", "score": 0},
+      {"label": "下次再提醒他撸,现在先去喝水,活在当下", "score": -1}
+    ]
+  },
+  {
+    "id": 18,
+    "dim": "NZ",
+    "text": "关灯前的最后一分钟,你脑子里一般在——",
+    "scenario_emoji": "🌃",
+    "bubble": "睡前的脑内戏码",
+    "avatar": "images/sphynx.png",
+    "options": [
+      {"label": "复盘今天哪只流浪猫多看了我一眼,背后究竟什么含义", "score": 1},
+      {"label": "随便想两下今天的饭好不好吃,大概率几分钟后睡着", "score": 0},
+      {"label": "关灯=断电,无缝进入睡眠状态,脑子是个单线程", "score": -1}
     ]
   }
 ]
