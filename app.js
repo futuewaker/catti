@@ -44,7 +44,7 @@
 
   const DIM_IDX = { EI: 0, PL: 1, TF: 2, JS: 3, MD: 4, NZ: 5 };
   // SBTI-style dimension labels (更戏剧化/网感化)
-  const DIM_LABELS = ['社牛浓度', '发动机转速', '冷静抬杠度', '强迫症指数', '恋爱脑指数', '内耗指数'];
+  const DIM_LABELS = ['社牛浓度', '干就完了指数', '讲道理指数', '强迫症指数', '恋爱脑指数', '内耗指数'];
   const DIM_COUNT = DIM_LABELS.length;
   const ANIM_MS = 280;
   const FLASH_MS = 320;
@@ -80,15 +80,15 @@
     resultImage:          $('result-image'),
     resultNameTitle:      $('result-name-title'),
     resultName:           $('result-name'),
-    resultMetaCode:       $('result-meta-code'),
-    resultMetaBreed:      $('result-meta-breed'),
     resultMdValue:        $('result-md-value'),
     resultMdNote:         $('result-md-note'),
     resultNzValue:        $('result-nz-value'),
     resultNzNote:         $('result-nz-note'),
     resultQuote:          $('result-quote'),
     resultTags:           $('result-tags'),
+    resultQuickReview:    $('result-quick-review'),
     resultInterpretation: $('result-interpretation'),
+    resultCatchphrases:   $('result-catchphrases'),
     radarCanvas:          $('radar-canvas'),
     btnRestart:           $('btn-restart'),
     btnShare:             $('btn-share'),
@@ -103,10 +103,9 @@
     scAvatar:      $('sc-avatar'),
     scNameTitle:   $('sc-name-title'),
     scName:        $('sc-name'),
-    scMetaCode:    $('sc-meta-code'),
-    scMetaBreed:   $('sc-meta-breed'),
     scPunchline:   $('sc-punchline'),
-    scTagsGrid:    $('sc-tags-grid')
+    scTagsGrid:    $('sc-tags-grid'),
+    scQuickReview: $('sc-quick-review')
   };
 
   // ------------------------------------------------------------
@@ -467,20 +466,29 @@
     // Add a space between code and name ("WILD" + " " + "野性基因-孟加拉猫")
     el.resultNameTitle.textContent = cat.name_title ? cat.name_title + ' ' : '';
     el.resultName.textContent      = cat.name || '';
-    el.resultMetaCode.textContent  = cat.name_title || '';
-    el.resultMetaBreed.textContent = cat.breed || '';
 
     // The quote block now shows the cat's first-person punchline
     el.resultQuote.textContent = cat.punchline || cat.slogan || '';
+    if (el.resultQuickReview) el.resultQuickReview.textContent = cat.quick_review || '';
     el.resultInterpretation.textContent = cat.interpretation || '';
 
     el.resultTags.innerHTML = '';
-    (cat.tags || []).forEach(function (t) {
+    (cat.tags || []).slice(0, 4).forEach(function (t) {
       const span = document.createElement('span');
       span.className = 'tag';
       span.textContent = t;
       el.resultTags.appendChild(span);
     });
+
+    if (el.resultCatchphrases) {
+      el.resultCatchphrases.innerHTML = '';
+      (cat.catchphrases || []).forEach(function (phrase) {
+        const d = document.createElement('div');
+        d.className = 'catchphrase';
+        d.textContent = phrase;
+        el.resultCatchphrases.appendChild(d);
+      });
+    }
 
     // Draw radar chart
     drawRadar(el.radarCanvas, state.userVec);
@@ -607,18 +615,18 @@
   // Highlight card copy — 恋爱脑指数 / 内耗指数
   // ------------------------------------------------------------
   function mdNoteFor(pct) {
-    if (pct >= 80) return '月亮代表我的心,爱上就上头到底';
-    if (pct >= 60) return '想爱但还带着一点点理智';
-    if (pct >= 40) return '先稳着,不轻易主动营业';
-    if (pct >= 20) return '观察三天再决定要不要心动';
-    return '自带反恋爱金甲护体';
+    if (pct >= 80) return '爱上就原地失忆三个月 · 解除状态需重启';
+    if (pct >= 60) return '心动了,但还记得先刷个牙';
+    if (pct >= 40) return '不上赶着 · 让对方先暴露自己';
+    if (pct >= 20) return '心动需签三份意向书才生效';
+    return '金甲护体 · 丘比特射一箭碎一箭';
   }
   function nzNoteFor(pct) {
-    if (pct >= 80) return '上一秒下一秒都在心里开庭';
-    if (pct >= 60) return '会反刍,但两小时内能自愈';
-    if (pct >= 40) return '偶尔想得多,但吐得掉';
-    if (pct >= 20) return '想得开,忘得也快';
-    return '佛到万物皆可,不疑不虑';
+    if (pct >= 80) return '一句话能在心里开庭审判三天三夜';
+    if (pct >= 60) return '反刍三遍 · 两小时内自己把自己劝好';
+    if (pct >= 40) return '偶尔想多 · 但能一键清缓存';
+    if (pct >= 20) return '翻篇速度比 Ctrl+R 还快';
+    return '佛到羽化登仙 · 内耗索引 0 条结果';
   }
 
   // ------------------------------------------------------------
@@ -672,22 +680,43 @@
   // Uses html-to-image via CDN. Image displays inline so users can
   // long-press to save on mobile or right-click on desktop.
   // ------------------------------------------------------------
+  // Convert a (local) image URL to a data URL so html-to-image can reliably
+  // capture it on mobile browsers (Safari sometimes misses <img> that hasn't
+  // been fully decoded even when img.complete is true).
+  async function imageToDataUrl(src) {
+    if (!src) return '';
+    if (src.startsWith('data:')) return src;
+    try {
+      const res = await fetch(src, { cache: 'force-cache' });
+      const blob = await res.blob();
+      return await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onloadend = () => resolve(r.result);
+        r.onerror = reject;
+        r.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn('[CATTI] imageToDataUrl failed, fallback to src', e);
+      return src;
+    }
+  }
+
   async function generateShareImage() {
     const cat = state.result;
     if (!cat) return;
 
-    // populate simplified share card
-    el.scAvatar.src = cat.image || '';
+    // Pre-embed avatar as a data URL for mobile reliability
+    const avatarDataUrl = await imageToDataUrl(cat.image || '');
+    el.scAvatar.src = avatarDataUrl;
     el.scNameTitle.textContent   = cat.name_title ? cat.name_title + ' ' : '';
     el.scName.textContent        = cat.name || '';
-    el.scMetaCode.textContent    = cat.name_title || '';
-    el.scMetaBreed.textContent   = cat.breed || '';
     if (el.scPunchline) el.scPunchline.textContent = cat.punchline || cat.slogan || '';
+    if (el.scQuickReview) el.scQuickReview.textContent = cat.quick_review || '';
 
-    // Render first 6 tags into share card (3 per row × 2 rows)
+    // Render first 4 tags into share card (2 per row × 2 rows) — matches result page
     if (el.scTagsGrid) {
       el.scTagsGrid.innerHTML = '';
-      (cat.tags || []).slice(0, 6).forEach(function (t) {
+      (cat.tags || []).slice(0, 4).forEach(function (t) {
         const d = document.createElement('div');
         d.className = 'sc-tag-item';
         d.textContent = t;
@@ -736,11 +765,18 @@
   function waitForImage(img) {
     return new Promise((resolve) => {
       if (!img || !img.src) { resolve(); return; }
-      if (img.complete && img.naturalWidth > 0) { resolve(); return; }
-      const done = () => { img.removeEventListener('load', done); img.removeEventListener('error', done); resolve(); };
+      const decodeThenResolve = () => {
+        if (typeof img.decode === 'function') {
+          img.decode().then(resolve).catch(() => resolve());
+        } else {
+          resolve();
+        }
+      };
+      if (img.complete && img.naturalWidth > 0) { decodeThenResolve(); return; }
+      const done = () => { img.removeEventListener('load', done); img.removeEventListener('error', done); decodeThenResolve(); };
       img.addEventListener('load', done);
       img.addEventListener('error', done);
-      setTimeout(done, 3000);
+      setTimeout(resolve, 3000);
     });
   }
 

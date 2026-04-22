@@ -587,7 +587,7 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .pixel-avatar {
@@ -632,7 +632,7 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 0;
   line-height: 1;
 }
 #result-name-title {
@@ -699,7 +699,7 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   font-size: 15px;
   line-height: 1.6;
   color: var(--text);
-  margin: 24px 0;
+  margin: 8px 0 22px;
   position: relative;
   font-weight: 500;
 }
@@ -730,7 +730,54 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  margin-bottom: 12px;
+}
+
+.result-quick-review {
+  background: var(--accent);
+  border: 2px solid var(--text);
+  box-shadow: 4px 4px 0 var(--text);
+  border-radius: 14px;
+  padding: 18px 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  font-weight: 600;
   margin-bottom: 28px;
+  letter-spacing: 0.005em;
+}
+
+.result-catchphrases {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.catchphrase {
+  background: var(--bg);
+  border: 2px solid var(--text);
+  box-shadow: 3px 3px 0 var(--accent);
+  border-radius: 12px;
+  padding: 14px 14px 14px 26px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.catchphrase::before {
+  content: "“";
+  position: absolute;
+  left: 10px;
+  top: 4px;
+  font-size: 28px;
+  color: var(--accent);
+  font-family: serif;
+  line-height: 1;
+  font-weight: 900;
 }
 .tag {
   background: var(--bg);
@@ -834,6 +881,40 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 .share-image-block {
   margin-bottom: 28px;
 }
+.save-card {
+  background: var(--bg);
+  border: 2px solid var(--text);
+  box-shadow: 5px 5px 0 var(--accent);
+  border-radius: 16px;
+  padding: 14px 14px 16px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.save-card .share-image-frame {
+  background: var(--bg);
+  border: 2px solid var(--text);
+  box-shadow: 3px 3px 0 var(--text);
+  border-radius: 12px;
+  padding: 10px;
+}
+.save-card-hint {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  padding: 4px 0;
+  border-top: 2px dashed var(--border);
+  border-bottom: 2px dashed var(--border);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.save-card-hint-row { white-space: nowrap; }
+.save-card-btn { width: 100%; }
 .share-image-frame {
   background: var(--bg);
   border: 2px solid var(--text);
@@ -1030,6 +1111,11 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   gap: 12px;
   margin-bottom: 4px;
 }
+.share-card .sc-brand-corner {
+  align-self: flex-start;
+  text-align: left;
+  margin-bottom: 0;
+}
 .share-card .sc-logo {
   font-family: var(--font-pixel);
   font-size: 46px;
@@ -1091,10 +1177,10 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   line-height: 1;
 }
 .share-card #sc-name {
-  font-size: 24px;
+  font-size: 40px;
   font-weight: 900;
   color: var(--text);
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 
@@ -1203,17 +1289,17 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 }
 .share-card .sc-tags-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 .share-card .sc-tag-item {
-  background: var(--accent);
+  background: #FFFFFF;
   border: 2px solid var(--text);
-  border-radius: 10px;
-  padding: 10px 6px;
+  border-radius: 12px;
+  padding: 14px 10px;
   text-align: center;
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 17px;
+  font-weight: 700;
   color: var(--text);
   line-height: 1.2;
   box-shadow: 2px 2px 0 var(--text);
@@ -1221,6 +1307,35 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   align-items: center;
   justify-content: center;
   min-height: 48px;
+}
+
+.share-card .sc-quick-review-block {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--accent);
+  border: 2px solid var(--text);
+  box-shadow: 5px 5px 0 var(--text);
+  border-radius: 16px;
+  padding: 18px 22px 20px;
+  text-align: left;
+}
+.share-card .sc-quick-review-label {
+  display: inline-block;
+  background: var(--text);
+  color: #FFFFFF;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+.share-card .sc-quick-review {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.003em;
 }
 
 .share-card .sc-footer {

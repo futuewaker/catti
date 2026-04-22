@@ -118,16 +118,6 @@
         <h2 class="result-name">
           <span id="result-name-title"></span><span id="result-name"></span>
         </h2>
-        <dl class="result-meta">
-          <div class="result-meta-row">
-            <dt>代号</dt>
-            <dd id="result-meta-code"></dd>
-          </div>
-          <div class="result-meta-row">
-            <dt>品种原型</dt>
-            <dd id="result-meta-breed"></dd>
-          </div>
-        </dl>
       </div>
 
       <blockquote class="result-quote" id="result-quote"></blockquote>
@@ -135,12 +125,13 @@
       <h3 class="result-section-title">性格标签</h3>
       <div class="result-tags" id="result-tags"></div>
 
-      <div class="result-divider"></div>
+      <h3 class="result-section-title">喵格速评</h3>
+      <div class="result-quick-review" id="result-quick-review"></div>
 
       <h3 class="result-section-title">喵格解读</h3>
       <div class="result-interpretation" id="result-interpretation"></div>
 
-      <h3 class="result-section-title">年轻人限定指标</h3>
+      <h3 class="result-section-title">你的两个副属性</h3>
       <div class="highlight-cards">
         <div class="highlight-card highlight-card-md">
           <span class="highlight-card-label">恋爱脑指数</span>
@@ -159,8 +150,11 @@
         <canvas id="radar-canvas" width="600" height="600" aria-label="维度雷达图"></canvas>
       </div>
 
-      <h3 class="result-section-title">保存 / 分享</h3>
-      <div class="share-image-block">
+      <h3 class="result-section-title">口头禅</h3>
+      <div class="result-catchphrases" id="result-catchphrases"></div>
+
+      <h3 class="result-section-title">带走你的本命猫</h3>
+      <div class="save-card">
         <div class="share-image-frame" id="share-image-frame">
           <div class="share-image-placeholder" id="share-image-placeholder">
             <div class="spinner"></div>
@@ -168,13 +162,14 @@
           </div>
           <img class="share-image" id="share-image" src="" alt="结果图" style="display:none">
         </div>
-        <p class="share-hint" id="share-hint">
-          📱 手机端长按图片即可保存 · 💻 电脑端右键另存为
-        </p>
+        <div class="save-card-hint">
+          <span class="save-card-hint-row">📱 手机长按图片保存</span>
+          <span class="save-card-hint-row">💻 电脑右键另存为</span>
+        </div>
+        <button class="btn btn-primary save-card-btn" id="btn-share" type="button">复制分享链接</button>
       </div>
 
       <div class="result-actions">
-        <button class="btn btn-secondary" id="btn-share" type="button">复制分享链接</button>
         <button class="btn btn-ghost" id="btn-restart" type="button">再测一次</button>
       </div>
 
@@ -199,7 +194,7 @@
   <!-- Hidden share card for image export · 9:16 portrait · single column -->
   <div class="share-card-wrap" id="share-card-wrap" aria-hidden="true">
     <div class="share-card" id="share-card">
-      <div class="sc-brand">
+      <div class="sc-brand sc-brand-corner">
         <span class="sc-logo">CatTi</span>
         <span class="sc-tagline">· 2026 猫格测试 ·</span>
       </div>
@@ -213,25 +208,19 @@
         <span id="sc-name-title"></span><span id="sc-name"></span>
       </div>
 
-      <dl class="sc-meta-list">
-        <div class="sc-meta-row">
-          <dt>代号</dt>
-          <dd id="sc-meta-code"></dd>
-        </div>
-        <div class="sc-meta-row">
-          <dt>品种原型</dt>
-          <dd id="sc-meta-breed"></dd>
-        </div>
-      </dl>
-
       <div class="sc-punchline-block">
         <div class="sc-punchline-label">猫的一句台词</div>
         <blockquote class="sc-punchline" id="sc-punchline"></blockquote>
       </div>
 
       <div class="sc-tags-block">
-        <div class="sc-tags-label">我身上的标签</div>
+        <div class="sc-tags-label">性格标签</div>
         <div class="sc-tags-grid" id="sc-tags-grid"></div>
+      </div>
+
+      <div class="sc-quick-review-block">
+        <div class="sc-quick-review-label">喵格速评</div>
+        <div class="sc-quick-review" id="sc-quick-review"></div>
       </div>
 
       <div class="sc-footer">

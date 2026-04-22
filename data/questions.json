@@ -1,345 +1,47 @@
 [
   {
-    "id": 1,
-    "dim": "EI",
-    "text": "「我其实挺享受一只猫待着的时光，铲屎官说的话太多了。」这句话——",
-    "scenario_emoji": "🐱",
-    "bubble": "一个人最诚实的时刻",
-    "avatar": "images/black_cat.png",
+    "id": 18,
+    "dim": "NZ",
+    "text": "关灯前的最后一分钟,你脑子里一般在——",
+    "scenario_emoji": "🌃",
+    "bubble": "睡前的脑内戏码",
+    "avatar": "images/sphynx.png",
     "options": [
       {
-        "label": "胡说八道，没人陪我的日子等于饿肚子",
+        "label": "复盘今天哪只流浪猫多看了我一眼,背后究竟什么含义",
         "score": 1,
         "cats": [
-          "siamese",
-          "sphynx",
-          "tuxedo",
-          "cheese",
-          "devon_rex",
-          "munchkin"
-        ]
-      },
-      {
-        "label": "看情况，有时独处有时想被撸",
-        "score": 0,
-        "cats": [
-          "american_curl",
-          "calico",
-          "turkish_van"
-        ]
-      },
-      {
-        "label": "句句戳心，我甚至想续订一份孤独",
-        "score": -1,
-        "cats": [
-          "black_cat",
           "scottish_fold",
           "russian_blue",
-          "norwegian_forest",
-          "british_shorthair",
-          "persian"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "dim": "EI",
-    "text": "铲屎官突然带了一只陌生猫回家，说要同居三天。你第一个晚上的状态是——",
-    "scenario_emoji": "😾",
-    "bubble": "陌生人进场，你紧张吗",
-    "avatar": "images/russian_blue.png",
-    "options": [
-      {
-        "label": "主动贴脸认亲，感觉家里人丁兴旺,我很开心",
-        "score": 1,
-        "cats": [
-          "siamese",
-          "tuxedo",
           "sphynx",
-          "cheese",
-          "devon_rex",
-          "calico"
-        ]
-      },
-      {
-        "label": "各占一角,隔着客厅监视但没开打",
-        "score": 0,
-        "cats": [
-          "american_shorthair",
-          "norwegian_forest",
-          "turkish_van"
-        ]
-      },
-      {
-        "label": "拒绝进食,躲进沙发底,只求对方快走",
-        "score": -1,
-        "cats": [
-          "russian_blue",
-          "persian",
-          "scottish_fold",
-          "black_cat",
-          "british_shorthair",
-          "ragdoll"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "dim": "EI",
-    "text": "家里客人聊到凌晨还不走，占了你常坐的沙发。你的内心戏是——",
-    "scenario_emoji": "🛋️",
-    "bubble": "人多的时候，你还是你吗",
-    "avatar": "images/siamese.png",
-    "options": [
-      {
-        "label": "新粉丝!挨个巡视一波,看能否收获零食",
-        "score": 1,
-        "cats": [
-          "abyssinian",
-          "siamese",
-          "cheese",
-          "tuxedo",
-          "sphynx",
-          "devon_rex",
-          "munchkin"
-        ]
-      },
-      {
-        "label": "挑个高处看戏,友好就靠近,不友好就保持距离",
-        "score": 0,
-        "cats": [
-          "norwegian_forest",
-          "angora",
-          "american_shorthair"
-        ]
-      },
-      {
-        "label": "他们占了我的沙发,我的世界已在崩塌",
-        "score": -1,
-        "cats": [
-          "persian",
-          "british_shorthair",
-          "scottish_fold",
-          "black_cat",
-          "russian_blue",
-          "orange"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "dim": "PL",
-    "text": "凌晨3:47，你的精神状态是——",
-    "scenario_emoji": "🌙",
-    "bubble": "深夜是另一种测谎仪",
-    "avatar": "images/bengal.png",
-    "options": [
-      {
-        "label": "战斗满血,正在客厅地板上巡视假想敌",
-        "score": 1,
-        "cats": [
-          "tuxedo",
-          "bengal",
-          "abyssinian",
-          "turkish_van",
-          "devon_rex",
-          "calico"
-        ]
-      },
-      {
-        "label": "半梦半醒,偶尔动一下耳朵确认天没塌",
-        "score": 0,
-        "cats": [
-          "american_shorthair",
-          "munchkin",
-          "angora"
-        ]
-      },
-      {
-        "label": "深度昏迷,就算天塌下来也是明早的事",
-        "score": -1,
-        "cats": [
-          "orange",
-          "garfield",
           "ragdoll",
-          "persian",
-          "black_cat"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "dim": "PL",
-    "text": "逗猫棒在你眼前晃了30秒。你的反应是——",
-    "scenario_emoji": "🎣",
-    "bubble": "看你扑不扑，就知道你是谁",
-    "avatar": "images/abyssinian.png",
-    "options": [
-      {
-        "label": "腾空而起,空中转体,精准扑杀,顺便撞翻一个水杯",
-        "score": 1,
-        "cats": [
-          "bengal",
-          "tuxedo",
-          "abyssinian",
-          "turkish_van",
-          "devon_rex",
-          "munchkin"
-        ]
-      },
-      {
-        "label": "前两下还能跟着甩,再晃就开始装死",
-        "score": 0,
-        "cats": [
-          "american_curl",
-          "angora",
+          "norwegian_forest",
+          "black_cat",
           "golden_chinchilla"
         ]
       },
       {
-        "label": "眼睛会跟,爪子坚决不出力",
+        "label": "随便想两下今天的饭好不好吃,大概率几分钟后睡着",
+        "score": 0,
+        "cats": [
+          "american_shorthair",
+          "american_curl",
+          "turkish_van",
+          "maine_coon"
+        ]
+      },
+      {
+        "label": "关灯=断电,无缝进入睡眠状态,脑子是个单线程",
         "score": -1,
         "cats": [
-          "persian",
           "orange",
           "garfield",
-          "ragdoll",
-          "scottish_fold",
-          "british_shorthair"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "dim": "PL",
-    "text": "桌上有只苍蝇在飞,铲屎官喊你去处理。你的反应——",
-    "scenario_emoji": "🪰",
-    "bubble": "使命感突然从天而降",
-    "avatar": "images/norwegian_forest.png",
-    "options": [
-      {
-        "label": "使命召唤,立刻进入捕猎模式,十分钟后交作业",
-        "score": 1,
-        "cats": [
           "bengal",
+          "cheese",
           "abyssinian",
-          "norwegian_forest",
-          "maine_coon",
+          "devon_rex",
           "munchkin",
           "tuxedo"
-        ]
-      },
-      {
-        "label": "先观察两下,看它会不会自己飞走",
-        "score": 0,
-        "cats": [
-          "russian_blue",
-          "angora",
-          "turkish_van"
-        ]
-      },
-      {
-        "label": "那是人类的事,我和苍蝇无冤无仇",
-        "score": -1,
-        "cats": [
-          "orange",
-          "garfield",
-          "ragdoll",
-          "persian",
-          "scottish_fold",
-          "british_shorthair"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 7,
-    "dim": "TF",
-    "text": "「只要我够冷静,一切问题都能被分析清楚。」这句话——",
-    "scenario_emoji": "🧠",
-    "bubble": "理性还是感性，现在选边",
-    "avatar": "images/british_shorthair.png",
-    "options": [
-      {
-        "label": "认同,情绪是用来管理的,不是用来被支配的",
-        "score": 1,
-        "cats": [
-          "british_shorthair",
-          "russian_blue",
-          "norwegian_forest",
-          "persian",
-          "american_shorthair",
-          "bengal",
-          "black_cat"
-        ]
-      },
-      {
-        "label": "看事情大小,大事冷静小事随心",
-        "score": 0,
-        "cats": [
-          "american_curl",
-          "turkish_van"
-        ]
-      },
-      {
-        "label": "不认同,没有情绪的猫生等于白过",
-        "score": -1,
-        "cats": [
-          "devon_rex",
-          "tuxedo",
-          "cheese",
-          "munchkin",
-          "ragdoll",
-          "siamese"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 8,
-    "dim": "TF",
-    "text": "铲屎官最近失恋,每天晚上对着天花板叹气。你——",
-    "scenario_emoji": "💔",
-    "bubble": "他的眼泪，你共振吗",
-    "avatar": "images/munchkin.png",
-    "options": [
-      {
-        "label": "这是人类的周期性现象,提供陪伴但不感同身受",
-        "score": 1,
-        "cats": [
-          "british_shorthair",
-          "persian",
-          "russian_blue",
-          "norwegian_forest",
-          "bengal",
-          "abyssinian",
-          "black_cat"
-        ]
-      },
-      {
-        "label": "默默卧在脚边,偶尔拿尾巴扫一下他",
-        "score": 0,
-        "cats": [
-          "maine_coon",
-          "american_shorthair",
-          "ragdoll"
-        ]
-      },
-      {
-        "label": "情绪上头,当场跟着他呜呜呜半小时",
-        "score": -1,
-        "cats": [
-          "tuxedo",
-          "devon_rex",
-          "munchkin",
-          "siamese",
-          "cheese",
-          "sphynx"
         ]
       }
     ]
@@ -362,7 +64,8 @@
           "bengal",
           "american_shorthair",
           "norwegian_forest",
-          "black_cat"
+          "black_cat",
+          "maine_coon"
         ]
       },
       {
@@ -384,95 +87,6 @@
           "tuxedo",
           "siamese",
           "sphynx"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 10,
-    "dim": "JS",
-    "text": "你的铲屎官把饭推迟了27分钟。你的反应——",
-    "scenario_emoji": "🕑",
-    "bubble": "你和秒针有私仇吗",
-    "avatar": "images/scottish_fold.png",
-    "options": [
-      {
-        "label": "从第25分钟开始坐立不安,27分是我的底线",
-        "score": 1,
-        "cats": [
-          "persian",
-          "british_shorthair",
-          "angora",
-          "norwegian_forest",
-          "bengal",
-          "scottish_fold"
-        ]
-      },
-      {
-        "label": "喵两声抗议,晚了也能忍着咽下去",
-        "score": 0,
-        "cats": [
-          "american_shorthair",
-          "golden_chinchilla",
-          "maine_coon"
-        ]
-      },
-      {
-        "label": "时间是什么?有饭就是好饭",
-        "score": -1,
-        "cats": [
-          "garfield",
-          "orange",
-          "cheese",
-          "ragdoll",
-          "tuxedo",
-          "devon_rex"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 11,
-    "dim": "JS",
-    "text": "你的玩具和窝,是按照——",
-    "scenario_emoji": "🧸",
-    "bubble": "秩序是爱，乱是自由",
-    "avatar": "images/persian.png",
-    "options": [
-      {
-        "label": "每只老鼠都有固定窝点,谁乱放谁负责",
-        "score": 1,
-        "cats": [
-          "angora",
-          "persian",
-          "british_shorthair",
-          "american_shorthair",
-          "norwegian_forest",
-          "bengal"
-        ]
-      },
-      {
-        "label": "大致分区,偶尔满屋开花也能接受",
-        "score": 0,
-        "cats": [
-          "golden_chinchilla",
-          "turkish_van",
-          "russian_blue",
-          "american_curl",
-          "maine_coon"
-        ]
-      },
-      {
-        "label": "地上、床上、水碗里,处处是玩具的家",
-        "score": -1,
-        "cats": [
-          "tuxedo",
-          "devon_rex",
-          "cheese",
-          "orange",
-          "garfield",
-          "ragdoll",
-          "munchkin"
         ]
       }
     ]
@@ -515,54 +129,187 @@
           "cheese",
           "tuxedo",
           "devon_rex",
-          "ragdoll",
           "munchkin"
         ]
       }
     ]
   },
   {
-    "id": 13,
-    "dim": "MD",
-    "text": "铲屎官今天太忙,忘了按时给你开罐头。你的内心戏是——",
-    "scenario_emoji": "🥫",
-    "bubble": "失控的那一秒,最看得清你",
-    "avatar": "images/calico.png",
+    "id": 8,
+    "dim": "TF",
+    "text": "铲屎官最近失恋,每天晚上对着天花板叹气。你——",
+    "scenario_emoji": "💔",
+    "bubble": "他的眼泪，你共振吗",
+    "avatar": "images/munchkin.png",
     "options": [
       {
-        "label": "是不是不爱我了?我是不是做错了什么?反思三小时起步",
+        "label": "这是人类的周期性现象,提供陪伴但不感同身受",
         "score": 1,
         "cats": [
-          "siamese",
-          "ragdoll",
-          "sphynx",
-          "angora",
-          "scottish_fold",
-          "russian_blue"
+          "british_shorthair",
+          "persian",
+          "russian_blue",
+          "norwegian_forest",
+          "abyssinian",
+          "black_cat"
         ]
       },
       {
-        "label": "轻哼一声表达不满,贴个脸让他长点记性",
+        "label": "默默卧在脚边,偶尔拿尾巴扫一下他",
+        "score": 0,
+        "cats": [
+          "maine_coon",
+          "american_shorthair",
+          "ragdoll",
+          "golden_chinchilla"
+        ]
+      },
+      {
+        "label": "情绪上头,当场跟着他呜呜呜半小时",
+        "score": -1,
+        "cats": [
+          "tuxedo",
+          "devon_rex",
+          "munchkin",
+          "siamese",
+          "cheese",
+          "sphynx",
+          "calico"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "dim": "JS",
+    "text": "你的玩具和窝,是按照——",
+    "scenario_emoji": "🧸",
+    "bubble": "秩序是爱，乱是自由",
+    "avatar": "images/persian.png",
+    "options": [
+      {
+        "label": "每只老鼠都有固定窝点,谁乱放谁负责",
+        "score": 1,
+        "cats": [
+          "angora",
+          "persian",
+          "british_shorthair",
+          "american_shorthair",
+          "norwegian_forest",
+          "calico",
+          "american_curl"
+        ]
+      },
+      {
+        "label": "大致分区,偶尔满屋开花也能接受",
+        "score": 0,
+        "cats": [
+          "golden_chinchilla",
+          "turkish_van",
+          "russian_blue",
+          "american_curl",
+          "maine_coon"
+        ]
+      },
+      {
+        "label": "地上、床上、水碗里,处处是玩具的家",
+        "score": -1,
+        "cats": [
+          "devon_rex",
+          "cheese",
+          "orange",
+          "garfield",
+          "munchkin"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "dim": "PL",
+    "text": "凌晨3:47，你的精神状态是——",
+    "scenario_emoji": "🌙",
+    "bubble": "深夜是另一种测谎仪",
+    "avatar": "images/bengal.png",
+    "options": [
+      {
+        "label": "战斗满血,正在客厅地板上巡视假想敌",
+        "score": 1,
+        "cats": [
+          "tuxedo",
+          "bengal",
+          "abyssinian",
+          "turkish_van",
+          "devon_rex",
+          "calico",
+          "american_curl"
+        ]
+      },
+      {
+        "label": "半梦半醒,偶尔动一下耳朵确认天没塌",
+        "score": 0,
+        "cats": [
+          "american_shorthair",
+          "munchkin",
+          "angora",
+          "maine_coon"
+        ]
+      },
+      {
+        "label": "深度昏迷,就算天塌下来也是明早的事",
+        "score": -1,
+        "cats": [
+          "orange",
+          "garfield",
+          "ragdoll",
+          "persian",
+          "black_cat"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "dim": "NZ",
+    "text": "铲屎官误会是你把花瓶打碎,但其实是另一只干的。你——",
+    "scenario_emoji": "🏺",
+    "bubble": "被误解的那一秒,心里在演什么剧",
+    "avatar": "images/scottish_fold.png",
+    "options": [
+      {
+        "label": "躲角落里演完整部《我不配》连续剧,循环自我质疑",
+        "score": 1,
+        "cats": [
+          "scottish_fold",
+          "russian_blue",
+          "sphynx",
+          "ragdoll",
+          "golden_chinchilla",
+          "angora",
+          "black_cat",
+          "siamese"
+        ]
+      },
+      {
+        "label": "生下闷气,主动去蹭另一只的屁股暗示它主动招",
         "score": 0,
         "cats": [
           "calico",
-          "golden_chinchilla",
-          "munchkin",
+          "british_shorthair",
           "norwegian_forest"
         ]
       },
       {
-        "label": "该吃吃该睡睡,他忙他的,我忙我的,各自人生",
+        "label": "想这么多干嘛,清白它自己会来,我先把今天的瞌睡补上",
         "score": -1,
         "cats": [
+          "munchkin",
           "orange",
-          "bengal",
-          "abyssinian",
-          "garfield",
           "tuxedo",
-          "turkish_van",
           "cheese",
-          "black_cat"
+          "garfield",
+          "bengal",
+          "devon_rex"
         ]
       }
     ]
@@ -641,7 +388,8 @@
           "russian_blue",
           "angora",
           "golden_chinchilla",
-          "american_shorthair"
+          "american_shorthair",
+          "maine_coon"
         ]
       },
       {
@@ -653,54 +401,7 @@
           "bengal",
           "garfield",
           "abyssinian",
-          "tuxedo",
           "black_cat"
-        ]
-      }
-    ]
-  },
-  {
-    "id": 16,
-    "dim": "NZ",
-    "text": "铲屎官误会是你把花瓶打碎,但其实是另一只干的。你——",
-    "scenario_emoji": "🏺",
-    "bubble": "被误解的那一秒,心里在演什么剧",
-    "avatar": "images/scottish_fold.png",
-    "options": [
-      {
-        "label": "躲角落里演完整部《我不配》连续剧,循环自我质疑",
-        "score": 1,
-        "cats": [
-          "scottish_fold",
-          "russian_blue",
-          "sphynx",
-          "ragdoll",
-          "golden_chinchilla",
-          "angora",
-          "black_cat",
-          "siamese"
-        ]
-      },
-      {
-        "label": "生下闷气,主动去蹭另一只的屁股暗示它主动招",
-        "score": 0,
-        "cats": [
-          "calico",
-          "british_shorthair",
-          "norwegian_forest"
-        ]
-      },
-      {
-        "label": "想这么多干嘛,清白它自己会来,我先把今天的瞌睡补上",
-        "score": -1,
-        "cats": [
-          "munchkin",
-          "orange",
-          "tuxedo",
-          "cheese",
-          "garfield",
-          "bengal",
-          "devon_rex"
         ]
       }
     ]
@@ -722,7 +423,8 @@
           "russian_blue",
           "ragdoll",
           "golden_chinchilla",
-          "angora"
+          "angora",
+          "calico"
         ]
       },
       {
@@ -752,48 +454,354 @@
     ]
   },
   {
-    "id": 18,
-    "dim": "NZ",
-    "text": "关灯前的最后一分钟,你脑子里一般在——",
-    "scenario_emoji": "🌃",
-    "bubble": "睡前的脑内戏码",
-    "avatar": "images/sphynx.png",
+    "id": 2,
+    "dim": "EI",
+    "text": "铲屎官突然带了一只陌生猫回家，说要同居三天。你第一个晚上的状态是——",
+    "scenario_emoji": "😾",
+    "bubble": "陌生人进场，你紧张吗",
+    "avatar": "images/russian_blue.png",
     "options": [
       {
-        "label": "复盘今天哪只流浪猫多看了我一眼,背后究竟什么含义",
+        "label": "主动贴脸认亲，感觉家里人丁兴旺,我很开心",
         "score": 1,
         "cats": [
-          "scottish_fold",
-          "russian_blue",
+          "siamese",
+          "tuxedo",
           "sphynx",
-          "ragdoll",
+          "cheese",
+          "devon_rex",
+          "calico",
+          "abyssinian"
+        ]
+      },
+      {
+        "label": "各占一角,隔着客厅监视但没开打",
+        "score": 0,
+        "cats": [
+          "american_shorthair",
           "norwegian_forest",
+          "turkish_van",
+          "american_curl"
+        ]
+      },
+      {
+        "label": "拒绝进食,躲进沙发底,只求对方快走",
+        "score": -1,
+        "cats": [
+          "russian_blue",
+          "persian",
+          "scottish_fold",
           "black_cat",
+          "british_shorthair",
+          "ragdoll"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "dim": "PL",
+    "text": "逗猫棒在你眼前晃了30秒。你的反应是——",
+    "scenario_emoji": "🎣",
+    "bubble": "看你扑不扑，就知道你是谁",
+    "avatar": "images/abyssinian.png",
+    "options": [
+      {
+        "label": "腾空而起,空中转体,精准扑杀,顺便撞翻一个水杯",
+        "score": 1,
+        "cats": [
+          "bengal",
+          "tuxedo",
+          "abyssinian",
+          "turkish_van",
+          "devon_rex",
+          "munchkin",
+          "siamese",
+          "calico"
+        ]
+      },
+      {
+        "label": "前两下还能跟着甩,再晃就开始装死",
+        "score": 0,
+        "cats": [
+          "american_curl",
+          "angora",
           "golden_chinchilla"
         ]
       },
       {
-        "label": "随便想两下今天的饭好不好吃,大概率几分钟后睡着",
-        "score": 0,
+        "label": "眼睛会跟,爪子坚决不出力",
+        "score": -1,
         "cats": [
-          "american_shorthair",
-          "american_curl",
-          "turkish_van",
-          "maine_coon"
+          "persian",
+          "orange",
+          "garfield",
+          "ragdoll",
+          "scottish_fold",
+          "british_shorthair"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "dim": "PL",
+    "text": "桌上有只苍蝇在飞,铲屎官喊你去处理。你的反应——",
+    "scenario_emoji": "🪰",
+    "bubble": "使命感突然从天而降",
+    "avatar": "images/norwegian_forest.png",
+    "options": [
+      {
+        "label": "使命召唤,立刻进入捕猎模式,十分钟后交作业",
+        "score": 1,
+        "cats": [
+          "bengal",
+          "abyssinian",
+          "norwegian_forest",
+          "maine_coon",
+          "munchkin",
+          "tuxedo"
         ]
       },
       {
-        "label": "关灯=断电,无缝进入睡眠状态,脑子是个单线程",
+        "label": "先观察两下,看它会不会自己飞走",
+        "score": 0,
+        "cats": [
+          "russian_blue",
+          "angora",
+          "turkish_van"
+        ]
+      },
+      {
+        "label": "那是人类的事,我和苍蝇无冤无仇",
         "score": -1,
         "cats": [
           "orange",
           "garfield",
-          "tuxedo",
+          "persian",
+          "scottish_fold",
+          "british_shorthair"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "dim": "MD",
+    "text": "铲屎官今天太忙,忘了按时给你开罐头。你的内心戏是——",
+    "scenario_emoji": "🥫",
+    "bubble": "失控的那一秒,最看得清你",
+    "avatar": "images/calico.png",
+    "options": [
+      {
+        "label": "是不是不爱我了?我是不是做错了什么?反思三小时起步",
+        "score": 1,
+        "cats": [
+          "siamese",
+          "ragdoll",
+          "sphynx",
+          "angora",
+          "scottish_fold",
+          "russian_blue"
+        ]
+      },
+      {
+        "label": "轻哼一声表达不满,贴个脸让他长点记性",
+        "score": 0,
+        "cats": [
+          "calico",
+          "golden_chinchilla",
+          "norwegian_forest"
+        ]
+      },
+      {
+        "label": "该吃吃该睡睡,他忙他的,我忙我的,各自人生",
+        "score": -1,
+        "cats": [
+          "orange",
           "bengal",
-          "cheese",
           "abyssinian",
+          "garfield",
+          "turkish_van",
+          "cheese",
+          "black_cat"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "dim": "TF",
+    "text": "「只要我够冷静,一切问题都能被分析清楚。」这句话——",
+    "scenario_emoji": "🧠",
+    "bubble": "理性还是感性，现在选边",
+    "avatar": "images/british_shorthair.png",
+    "options": [
+      {
+        "label": "认同,情绪是用来管理的,不是用来被支配的",
+        "score": 1,
+        "cats": [
+          "british_shorthair",
+          "russian_blue",
+          "norwegian_forest",
+          "persian",
+          "american_shorthair",
+          "bengal",
+          "black_cat",
+          "maine_coon"
+        ]
+      },
+      {
+        "label": "看事情大小,大事冷静小事随心",
+        "score": 0,
+        "cats": [
+          "american_curl",
+          "turkish_van"
+        ]
+      },
+      {
+        "label": "不认同,没有情绪的猫生等于白过",
+        "score": -1,
+        "cats": [
+          "devon_rex",
+          "cheese",
+          "munchkin",
+          "ragdoll",
+          "siamese"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "dim": "JS",
+    "text": "你的铲屎官把饭推迟了27分钟。你的反应——",
+    "scenario_emoji": "🕑",
+    "bubble": "你和秒针有私仇吗",
+    "avatar": "images/scottish_fold.png",
+    "options": [
+      {
+        "label": "从第25分钟开始坐立不安,27分是我的底线",
+        "score": 1,
+        "cats": [
+          "persian",
+          "british_shorthair",
+          "angora",
+          "norwegian_forest",
+          "bengal",
+          "scottish_fold",
+          "american_curl"
+        ]
+      },
+      {
+        "label": "喵两声抗议,晚了也能忍着咽下去",
+        "score": 0,
+        "cats": [
+          "american_shorthair",
+          "golden_chinchilla",
+          "maine_coon"
+        ]
+      },
+      {
+        "label": "时间是什么?有饭就是好饭",
+        "score": -1,
+        "cats": [
+          "garfield",
+          "orange",
+          "cheese",
+          "ragdoll",
+          "tuxedo",
+          "devon_rex"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "dim": "EI",
+    "text": "「我其实挺享受一只猫待着的时光，铲屎官说的话太多了。」这句话——",
+    "scenario_emoji": "🐱",
+    "bubble": "一个人最诚实的时刻",
+    "avatar": "images/black_cat.png",
+    "options": [
+      {
+        "label": "胡说八道，没人陪我的日子等于饿肚子",
+        "score": 1,
+        "cats": [
+          "siamese",
+          "sphynx",
+          "tuxedo",
+          "cheese",
           "devon_rex",
           "munchkin"
+        ]
+      },
+      {
+        "label": "看情况，有时独处有时想被撸",
+        "score": 0,
+        "cats": [
+          "american_curl",
+          "calico",
+          "turkish_van",
+          "golden_chinchilla"
+        ]
+      },
+      {
+        "label": "句句戳心，我甚至想续订一份孤独",
+        "score": -1,
+        "cats": [
+          "black_cat",
+          "scottish_fold",
+          "russian_blue",
+          "norwegian_forest",
+          "british_shorthair",
+          "persian"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "dim": "EI",
+    "text": "家里客人聊到凌晨还不走，占了你常坐的沙发。你的内心戏是——",
+    "scenario_emoji": "🛋️",
+    "bubble": "人多的时候，你还是你吗",
+    "avatar": "images/siamese.png",
+    "options": [
+      {
+        "label": "新粉丝!挨个巡视一波,看能否收获零食",
+        "score": 1,
+        "cats": [
+          "abyssinian",
+          "siamese",
+          "cheese",
+          "tuxedo",
+          "sphynx",
+          "devon_rex",
+          "munchkin",
+          "calico"
+        ]
+      },
+      {
+        "label": "挑个高处看戏,友好就靠近,不友好就保持距离",
+        "score": 0,
+        "cats": [
+          "norwegian_forest",
+          "angora",
+          "american_shorthair",
+          "golden_chinchilla"
+        ]
+      },
+      {
+        "label": "他们占了我的沙发,我的世界已在崩塌",
+        "score": -1,
+        "cats": [
+          "persian",
+          "british_shorthair",
+          "scottish_fold",
+          "black_cat",
+          "russian_blue",
+          "orange"
         ]
       }
     ]
