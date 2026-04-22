@@ -4,6 +4,8 @@
     "dim": "EI",
     "text": "「我其实挺享受一只猫待着的时光，铲屎官说的话太多了。」这句话——",
     "scenario_emoji": "🐱",
+    "bubble": "一个人最诚实的时刻",
+    "avatar": "images/black_cat.png",
     "options": [
       {"label": "胡说八道，没人陪我的日子等于饿肚子", "score": 1},
       {"label": "看情况，有时独处有时想被撸", "score": 0},
@@ -15,6 +17,8 @@
     "dim": "EI",
     "text": "铲屎官突然带了一只陌生猫回家，说要同居三天。你第一个晚上的状态是——",
     "scenario_emoji": "😾",
+    "bubble": "陌生人进场，你紧张吗",
+    "avatar": "images/russian_blue.png",
     "options": [
       {"label": "主动贴脸认亲，感觉家里人丁兴旺,我很开心", "score": 1},
       {"label": "各占一角,隔着客厅监视但没开打", "score": 0},
@@ -26,6 +30,8 @@
     "dim": "EI",
     "text": "家里客人聊到凌晨还不走，占了你常坐的沙发。你的内心戏是——",
     "scenario_emoji": "🛋️",
+    "bubble": "人多的时候，你还是你吗",
+    "avatar": "images/siamese.png",
     "options": [
       {"label": "新粉丝!挨个巡视一波,看能否收获零食", "score": 1},
       {"label": "挑个高处看戏,友好就靠近,不友好就保持距离", "score": 0},
@@ -37,6 +43,8 @@
     "dim": "EI",
     "text": "铲屎官加班一整天回家,推门那一秒,你的画面是——",
     "scenario_emoji": "🚪",
+    "bubble": "开门的瞬间最不会撒谎",
+    "avatar": "images/ragdoll.png",
     "options": [
       {"label": "飞奔而出,边跑边嗷嗷念叨,尾巴直冲天花板", "score": 1},
       {"label": "抬眼瞄一下,慢悠悠走过去蹭一腿再走开", "score": 0},
@@ -48,6 +56,8 @@
     "dim": "PL",
     "text": "凌晨3:47，你的精神状态是——",
     "scenario_emoji": "🌙",
+    "bubble": "深夜是另一种测谎仪",
+    "avatar": "images/bengal.png",
     "options": [
       {"label": "战斗满血,正在客厅地板上巡视假想敌", "score": 1},
       {"label": "半梦半醒,偶尔动一下耳朵确认天没塌", "score": 0},
@@ -59,6 +69,8 @@
     "dim": "PL",
     "text": "逗猫棒在你眼前晃了30秒。你的反应是——",
     "scenario_emoji": "🎣",
+    "bubble": "看你扑不扑，就知道你是谁",
+    "avatar": "images/abyssinian.png",
     "options": [
       {"label": "腾空而起,空中转体,精准扑杀,顺便撞翻一个水杯", "score": 1},
       {"label": "前两下还能跟着甩,再晃就开始装死", "score": 0},
@@ -70,6 +82,8 @@
     "dim": "PL",
     "text": "你选了个新位置开始睡午觉,五分钟后感觉不太对——",
     "scenario_emoji": "😴",
+    "bubble": "舒服比什么都重要吗",
+    "avatar": "images/garfield.png",
     "options": [
       {"label": "立马换地,世界那么大总有更完美的窝", "score": 1},
       {"label": "凑合再躺一会儿,懒得挪", "score": 0},
@@ -81,6 +95,8 @@
     "dim": "PL",
     "text": "桌上有只苍蝇在飞,铲屎官喊你去处理。你的反应——",
     "scenario_emoji": "🪰",
+    "bubble": "使命感突然从天而降",
+    "avatar": "images/norwegian_forest.png",
     "options": [
       {"label": "使命召唤,立刻进入捕猎模式,十分钟后交作业", "score": 1},
       {"label": "先观察两下,看它会不会自己飞走", "score": 0},
@@ -92,6 +108,8 @@
     "dim": "TF",
     "text": "「只要我够冷静,一切问题都能被分析清楚。」这句话——",
     "scenario_emoji": "🧠",
+    "bubble": "理性还是感性，现在选边",
+    "avatar": "images/british_shorthair.png",
     "options": [
       {"label": "认同,情绪是用来管理的,不是用来被支配的", "score": 1},
       {"label": "看事情大小,大事冷静小事随心", "score": 0},
@@ -103,6 +121,8 @@
     "dim": "TF",
     "text": "铲屎官最近失恋,每天晚上对着天花板叹气。你——",
     "scenario_emoji": "💔",
+    "bubble": "他的眼泪，你共振吗",
+    "avatar": "images/munchkin.png",
     "options": [
       {"label": "这是人类的周期性现象,提供陪伴但不感同身受", "score": 1},
       {"label": "默默卧在脚边,偶尔拿尾巴扫一下他", "score": 0},
@@ -114,6 +134,8 @@
     "dim": "TF",
     "text": "另一只流浪猫蹲在你家门口求收编,看起来挺可怜。你的第一反应——",
     "scenario_emoji": "🥺",
+    "bubble": "先心动还是先怀疑",
+    "avatar": "images/calico.png",
     "options": [
       {"label": "可怜之猫必有可疑之处,先观察三天看剧情", "score": 1},
       {"label": "让铲屎官决定,他心软我省事", "score": 0},
@@ -125,6 +147,8 @@
     "dim": "TF",
     "text": "这题其实没有具体场景,请凭本能选一个——",
     "scenario_emoji": "🎲",
+    "bubble": "没题干的时候你更像你",
+    "avatar": "images/sphynx.png",
     "options": [
       {"label": "既然没场景,逻辑告诉我选A最安全", "score": 1},
       {"label": "盲选B是一种猫的智慧", "score": 0},
@@ -136,6 +160,8 @@
     "dim": "JS",
     "text": "你的铲屎官把饭推迟了27分钟。你的反应——",
     "scenario_emoji": "🕑",
+    "bubble": "你和秒针有私仇吗",
+    "avatar": "images/scottish_fold.png",
     "options": [
       {"label": "从第25分钟开始坐立不安,27分是我的底线", "score": 1},
       {"label": "喵两声抗议,晚了也能忍着咽下去", "score": 0},
@@ -147,6 +173,8 @@
     "dim": "JS",
     "text": "你的玩具和窝,是按照——",
     "scenario_emoji": "🧸",
+    "bubble": "秩序是爱，乱是自由",
+    "avatar": "images/persian.png",
     "options": [
       {"label": "每只老鼠都有固定窝点,谁乱放谁负责", "score": 1},
       {"label": "大致分区,偶尔满屋开花也能接受", "score": 0},
@@ -158,6 +186,8 @@
     "dim": "JS",
     "text": "「随性」这个词,在你听来——",
     "scenario_emoji": "🌀",
+    "bubble": "别紧张，没人打分",
+    "avatar": "images/orange.png",
     "options": [
       {"label": "像赞美,但我更享受把事情安排得明明白白", "score": 1},
       {"label": "不错的形容,但我也不是完全没底线", "score": 0},

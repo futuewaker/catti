@@ -12,73 +12,24 @@
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22%231A1A1A%22%20d%3D%22M3%203h2v2H3zm8%200h2v2h-2zM3%205h2v2H3zm2%200h6v6H5zm6%200h2v2h-2zM5%2011h6v2H5z%22/%3E%3C/svg%3E">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Reusable pixel cat SVG (used as default avatar) -->
+  <!-- SVG defs -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-      <symbol id="icon-pixel-cat" viewBox="0 0 16 16">
-        <g shape-rendering="crispEdges">
-          <rect x="2" y="3" width="2" height="1" fill="#1A1A1A"/>
-          <rect x="5" y="3" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="10" y="3" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="12" y="3" width="2" height="1" fill="#1A1A1A"/>
-          <rect x="2" y="4" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="3" y="4" width="3" height="1" fill="#F4A06B"/>
-          <rect x="6" y="4" width="4" height="1" fill="#1A1A1A"/>
-          <rect x="10" y="4" width="3" height="1" fill="#F4A06B"/>
-          <rect x="13" y="4" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="3" y="5" width="10" height="1" fill="#F4A06B"/>
-          <rect x="13" y="5" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="2" y="6" width="1" height="1" fill="#F4A06B"/>
-          <rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="4" y="6" width="1" height="1" fill="#FFFFFF"/>
-          <rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="6" y="6" width="4" height="1" fill="#F4A06B"/>
-          <rect x="10" y="6" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="11" y="6" width="1" height="1" fill="#FFFFFF"/>
-          <rect x="12" y="6" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="13" y="6" width="1" height="1" fill="#F4A06B"/>
-          <rect x="14" y="6" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="1" y="7" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="2" y="7" width="12" height="1" fill="#F4A06B"/>
-          <rect x="14" y="7" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="1" y="8" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="2" y="8" width="4" height="1" fill="#F4A06B"/>
-          <rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="7" y="8" width="2" height="1" fill="#FFC2A0"/>
-          <rect x="9" y="8" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="10" y="8" width="4" height="1" fill="#F4A06B"/>
-          <rect x="14" y="8" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="2" y="9" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="3" y="9" width="4" height="1" fill="#F4A06B"/>
-          <rect x="7" y="9" width="2" height="1" fill="#1A1A1A"/>
-          <rect x="9" y="9" width="4" height="1" fill="#F4A06B"/>
-          <rect x="13" y="9" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="2" y="10" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="3" y="10" width="10" height="1" fill="#F4A06B"/>
-          <rect x="13" y="10" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="3" y="11" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="4" y="11" width="8" height="1" fill="#F4A06B"/>
-          <rect x="12" y="11" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="3" y="12" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="4" y="12" width="2" height="1" fill="#F4A06B"/>
-          <rect x="6" y="12" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="7" y="12" width="2" height="1" fill="#F4A06B"/>
-          <rect x="9" y="12" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="10" y="12" width="2" height="1" fill="#F4A06B"/>
-          <rect x="12" y="12" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="3" y="13" width="1" height="1" fill="#1A1A1A"/>
-          <rect x="4" y="13" width="2" height="1" fill="#1A1A1A"/>
-          <rect x="7" y="13" width="2" height="1" fill="#1A1A1A"/>
-          <rect x="10" y="13" width="2" height="1" fill="#1A1A1A"/>
-        </g>
-      </symbol>
       <symbol id="icon-arrow-left" viewBox="0 0 24 24">
         <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M14 6l-6 6 6 6"/>
+      </symbol>
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M10 6l6 6-6 6"/>
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M5 20h14"/>
       </symbol>
     </defs>
   </svg>
@@ -88,14 +39,11 @@
     <!-- ===================== INTRO ===================== -->
     <section class="view view-intro active" id="view-intro" aria-label="首页">
       <div class="intro-inner">
-        <div class="pixel-avatar" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><use href="#icon-pixel-cat"/></svg>
-        </div>
+        <!-- pixel pet gallery -->
+        <div class="intro-gallery" aria-hidden="true" id="intro-gallery"></div>
 
-        <h1 class="title-main">
-          <span class="letter">C</span><span class="letter">A</span><span class="letter">T</span><span class="letter">T</span><span class="letter">I</span>
-        </h1>
-        <p class="title-sub">猫格测试 · 15 道题找到你的本命猫</p>
+        <h1 class="title-pixel">CatTi</h1>
+        <p class="title-sub">· 猫格测试 · 15 道题找到你的本命猫</p>
 
         <div class="intro-copy">
           <p>你以为你在测试，其实是一只老猫在观察你。</p>
@@ -114,20 +62,24 @@
     <!-- ===================== QUIZ ===================== -->
     <section class="view view-quiz" id="view-quiz" aria-label="题目">
       <header class="quiz-header">
-        <button class="icon-btn" id="btn-prev" type="button" aria-label="上一题" disabled>
+        <button class="icon-btn" id="btn-home" type="button" aria-label="回到首页">
           <svg viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg>
         </button>
-        <div class="progress-count" role="progressbar" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1">
-          <span id="progress-current">1</span> / <span id="progress-total">15</span>
+        <div class="progress-bar-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <div class="progress-count">
+            <span id="progress-current">1</span> <span class="progress-slash">/</span> <span id="progress-total">15</span>
+          </div>
         </div>
-        <div class="header-spacer" aria-hidden="true"></div>
       </header>
 
       <div class="scenario-hint">
         <div class="scenario-avatar" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><use href="#icon-pixel-cat"/></svg>
+          <img id="scenario-avatar-img" src="" alt="">
         </div>
-        <div class="scenario-bubble" id="scenario-bubble">社交还是不社交，这是个问题</div>
+        <div class="scenario-bubble" id="scenario-bubble">一个人最诚实的时刻</div>
       </div>
 
       <div class="quiz-stage">
@@ -138,9 +90,13 @@
       </div>
 
       <footer class="quiz-footer">
-        <button class="btn btn-primary" id="btn-continue" type="button" disabled>
-          继续
-          <span class="btn-arrow" aria-hidden="true">→</span>
+        <button class="nav-btn" id="btn-prev" type="button" aria-label="上一题" disabled>
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg>
+          <span>上一题</span>
+        </button>
+        <button class="nav-btn" id="btn-next" type="button" aria-label="下一题" disabled>
+          <span>下一题</span>
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
         </button>
       </footer>
     </section>
@@ -152,7 +108,9 @@
           <img id="result-image" src="" alt="">
         </div>
         <p class="result-preamble">你的本命猫是</p>
-        <h2 class="result-name" id="result-name"></h2>
+        <h2 class="result-name">
+          <span id="result-name-title"></span><span id="result-name"></span>
+        </h2>
         <p class="result-slogan" id="result-slogan"></p>
       </div>
 
@@ -161,13 +119,23 @@
       <h3 class="result-section-title">性格标签</h3>
       <div class="result-tags" id="result-tags"></div>
 
+      <h3 class="result-section-title">维度分析</h3>
+      <div class="radar-wrap">
+        <canvas id="radar-canvas" width="600" height="600" aria-label="维度雷达图"></canvas>
+      </div>
+
       <div class="result-divider"></div>
 
+      <h3 class="result-section-title">喵格解读</h3>
       <div class="result-interpretation" id="result-interpretation"></div>
 
       <div class="result-actions">
-        <button class="btn btn-primary" id="btn-restart" type="button">再测一次</button>
+        <button class="btn btn-primary" id="btn-download" type="button">
+          <svg viewBox="0 0 24 24" class="btn-icon"><use href="#icon-download"/></svg>
+          保存结果图
+        </button>
         <button class="btn btn-secondary" id="btn-share" type="button">复制分享链接</button>
+        <button class="btn btn-ghost" id="btn-restart" type="button">再测一次</button>
       </div>
 
       <p class="result-footer-note">愿你和这只猫一样，有自己的节奏。</p>
@@ -175,6 +143,35 @@
 
   </main>
 
+  <!-- Hidden share card for image export -->
+  <div class="share-card-wrap" id="share-card-wrap" aria-hidden="true">
+    <div class="share-card" id="share-card">
+      <div class="sc-header">
+        <div class="sc-logo">CatTi</div>
+        <div class="sc-tagline">猫格测试</div>
+      </div>
+      <div class="sc-avatar-wrap">
+        <img id="sc-avatar" src="" alt="">
+      </div>
+      <div class="sc-meta">
+        <div class="sc-preamble">你的本命猫是</div>
+        <div class="sc-name">
+          <span id="sc-name-title"></span><span id="sc-name"></span>
+        </div>
+        <div class="sc-slogan" id="sc-slogan"></div>
+      </div>
+      <div class="sc-tags" id="sc-tags"></div>
+      <div class="sc-radar-wrap">
+        <canvas id="sc-radar" width="400" height="400"></canvas>
+      </div>
+      <div class="sc-footer">
+        <div class="sc-qr-text">在 catti.pages.dev 测一测你的猫格</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- html-to-image via CDN, for download result image -->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>

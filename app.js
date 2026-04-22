@@ -1,70 +1,32 @@
 /* ===========================================================
-   CATTI · 猫格测试 — app.js
+   CATTI · 猫格测试 — app.js v2
    =========================================================== */
 (function () {
   'use strict';
 
   // ------------------------------------------------------------
-  // Mock fallbacks (used only when JSON fetch fails — e.g. file://)
+  // Mock fallbacks (used only if JSON fetch fails — e.g. file://)
   // ------------------------------------------------------------
   const MOCK_QUESTIONS = [
     {
       id: 1, dim: 'EI', text: '周末到了，你会选择？',
+      bubble: '一个人最诚实的时刻', avatar: 'images/black_cat.png',
       options: [
         { label: '呼朋唤友约饭唱K，越热闹越舒服', score: 1 },
-        { label: '看心情，有局就去没局也不强求',   score: 0 },
+        { label: '看心情，有局就去没局也不强求', score: 0 },
         { label: '关灯拉窗帘，一个人和我的猫',     score: -1 }
       ]
-    },
-    {
-      id: 2, dim: 'PL', text: '遇到一个新奇的小玩意，你会？',
-      options: [
-        { label: '立刻拆开研究，好奇心爆棚',   score: 1 },
-        { label: '先观察一会儿再决定',         score: 0 },
-        { label: '嗯…先放着，等心情对了再看', score: -1 }
-      ]
-    },
-    {
-      id: 3, dim: 'TF', text: '朋友跟你抱怨工作烦恼，你先？',
-      options: [
-        { label: '分析问题，给出解决方案', score: 1 },
-        { label: '听一听，顺便给点建议',   score: 0 },
-        { label: '先抱抱，先抱抱再说',     score: -1 }
-      ]
     }
   ];
-
   const MOCK_CATS = [
     {
-      id: 'calico', name: '三花猫', image: 'images/calico.png',
-      slogan: '一身三色，心有千机',
-      tags: ['独立', '机灵', '傲娇', '情绪稳定'],
-      vector: [1, 1, 1, 0],
-      interpretation: '三花猫的你，外表温柔里藏着小聪明。你喜欢自己安排节奏，不愿被任何人牵着走。'
-    },
-    {
-      id: 'orange', name: '橘猫', image: 'images/orange.png',
+      id: 'orange', name: '橘猫', name_title: '大橘大利的', image: 'images/orange.png',
       slogan: '十橘九胖，心宽路远',
-      tags: ['热情', '随和', '贪吃', '社牛'],
+      tags: ['朋友不多但都是精选', '懒是战略不是缺点', '白天乖巧晚上上头', '随遇而安但不将就'],
       vector: [2, 0, -1, 0],
-      interpretation: '你是朋友圈里的小太阳，自带松弛感。'
-    },
-    {
-      id: 'black_cat', name: '黑猫', image: 'images/black_cat.png',
-      slogan: '夜色是我的私人舞台',
-      tags: ['神秘', '敏感', '忠诚', '洞察力强'],
-      vector: [-2, 2, 0, 1],
-      interpretation: '黑猫般的你，安静中透着一种不动声色的锐利。'
+      interpretation: '你是朋友圈里的小太阳，自带松弛感。你不是懒，只是比别人更早想通了。'
     }
   ];
-
-  // Dim-based scenario hints (shown in the gray bubble)
-  const DIM_HINTS = {
-    EI: '社交还是独处，这是个问题',
-    PL: '出手还是躺平，这是种本能',
-    TF: '用脑还是用心，各有道理',
-    JS: '按计划还是凭感觉，都挺好'
-  };
 
   // ------------------------------------------------------------
   // State
@@ -74,44 +36,69 @@
     questions: [],
     cats: [],
     currentIdx: 0,
-    answers: [],          // [{id, dim, score}] or undefined
+    answers: [],        // [{id, dim, score}]
     result: null,
+    userVec: [0, 0, 0, 0],
     isAnimating: false
   };
 
   const DIM_IDX = { EI: 0, PL: 1, TF: 2, JS: 3 };
+  const DIM_LABELS = ['外向度', '主动度', '理智度', '有序度'];
   const ANIM_MS = 280;
+  const FLASH_MS = 320;
+  const NEXT_DELAY = 260;
 
   // ------------------------------------------------------------
   // DOM refs
   // ------------------------------------------------------------
+  const $ = (id) => document.getElementById(id);
   const el = {
     views: {
-      intro:  document.getElementById('view-intro'),
-      quiz:   document.getElementById('view-quiz'),
-      result: document.getElementById('view-result')
+      intro:  $('view-intro'),
+      quiz:   $('view-quiz'),
+      result: $('view-result')
     },
-    btnStart:        document.getElementById('btn-start'),
-    progressCurrent: document.getElementById('progress-current'),
-    progressTotal:   document.getElementById('progress-total'),
-    scenarioBubble:  document.getElementById('scenario-bubble'),
-    quizCard:        document.getElementById('quiz-card'),
-    qText:           document.getElementById('q-text'),
-    optionsList:     document.getElementById('options-list'),
-    btnPrev:         document.getElementById('btn-prev'),
-    btnContinue:     document.getElementById('btn-continue'),
-    resultImage:          document.getElementById('result-image'),
-    resultName:           document.getElementById('result-name'),
-    resultSlogan:         document.getElementById('result-slogan'),
-    resultQuote:          document.getElementById('result-quote'),
-    resultTags:           document.getElementById('result-tags'),
-    resultInterpretation: document.getElementById('result-interpretation'),
-    btnRestart:           document.getElementById('btn-restart'),
-    btnShare:             document.getElementById('btn-share')
+    // intro
+    introGallery: $('intro-gallery'),
+    btnStart:     $('btn-start'),
+    // quiz
+    btnHome:         $('btn-home'),
+    progressFill:    $('progress-fill'),
+    progressCurrent: $('progress-current'),
+    progressTotal:   $('progress-total'),
+    scenarioAvatar:  $('scenario-avatar-img'),
+    scenarioAvatarBox: document.querySelector('.scenario-avatar'),
+    scenarioBubble:  $('scenario-bubble'),
+    quizCard:        $('quiz-card'),
+    qText:           $('q-text'),
+    optionsList:     $('options-list'),
+    btnPrev:         $('btn-prev'),
+    btnNext:         $('btn-next'),
+    // result
+    resultImage:          $('result-image'),
+    resultNameTitle:      $('result-name-title'),
+    resultName:           $('result-name'),
+    resultSlogan:         $('result-slogan'),
+    resultQuote:          $('result-quote'),
+    resultTags:           $('result-tags'),
+    resultInterpretation: $('result-interpretation'),
+    radarCanvas:          $('radar-canvas'),
+    btnDownload:          $('btn-download'),
+    btnRestart:           $('btn-restart'),
+    btnShare:             $('btn-share'),
+    // share card
+    shareCardWrap: $('share-card-wrap'),
+    shareCard:     $('share-card'),
+    scAvatar:      $('sc-avatar'),
+    scNameTitle:   $('sc-name-title'),
+    scName:        $('sc-name'),
+    scSlogan:      $('sc-slogan'),
+    scTags:        $('sc-tags'),
+    scRadar:       $('sc-radar')
   };
 
   // ------------------------------------------------------------
-  // Init
+  // Init — load JSON + render
   // ------------------------------------------------------------
   async function init() {
     const [questions, cats] = await Promise.all([
@@ -121,8 +108,9 @@
     state.questions = Array.isArray(questions) && questions.length ? questions : MOCK_QUESTIONS;
     state.cats      = Array.isArray(cats)      && cats.length      ? cats      : MOCK_CATS;
 
-    if (el.progressTotal) el.progressTotal.textContent = state.questions.length;
+    el.progressTotal.textContent = state.questions.length;
 
+    renderIntroGallery();
     bindEvents();
     render();
   }
@@ -139,14 +127,33 @@
   }
 
   // ------------------------------------------------------------
+  // Intro pet gallery (3 representative cats)
+  // ------------------------------------------------------------
+  function renderIntroGallery() {
+    if (!el.introGallery) return;
+    const picks = ['calico', 'orange', 'black_cat'];
+    el.introGallery.innerHTML = '';
+    picks.forEach(id => {
+      const cat = state.cats.find(c => c.id === id);
+      const src = cat ? cat.image : ('images/' + id + '.png');
+      const div = document.createElement('div');
+      div.className = 'pet';
+      div.innerHTML = '<img src="' + src + '" alt="">';
+      el.introGallery.appendChild(div);
+    });
+  }
+
+  // ------------------------------------------------------------
   // Events
   // ------------------------------------------------------------
   function bindEvents() {
     el.btnStart    && el.btnStart.addEventListener('click', startQuiz);
+    el.btnHome     && el.btnHome.addEventListener('click',  goHome);
     el.btnPrev     && el.btnPrev.addEventListener('click',  previousQuestion);
-    el.btnContinue && el.btnContinue.addEventListener('click', continueQuiz);
+    el.btnNext     && el.btnNext.addEventListener('click',  nextQuestion);
     el.btnRestart  && el.btnRestart.addEventListener('click', restart);
     el.btnShare    && el.btnShare.addEventListener('click',  shareLink);
+    el.btnDownload && el.btnDownload.addEventListener('click', downloadCard);
   }
 
   // ------------------------------------------------------------
@@ -168,12 +175,18 @@
   }
 
   // ------------------------------------------------------------
-  // INTRO
+  // Intro actions
   // ------------------------------------------------------------
   function startQuiz() {
     state.view = 'quiz';
     state.currentIdx = 0;
     state.answers = [];
+    render();
+  }
+
+  function goHome() {
+    if (state.isAnimating) return;
+    state.view = 'intro';
     render();
   }
 
@@ -189,25 +202,36 @@
 
   function renderProgress() {
     const total = state.questions.length;
+    const current = state.currentIdx + 1;
     el.progressTotal.textContent = total;
-    el.progressCurrent.textContent = state.currentIdx + 1;
+    el.progressCurrent.textContent = current;
+    const pct = Math.round((current / total) * 100);
+    el.progressFill.style.width = pct + '%';
   }
 
   function renderScenarioHint() {
     const q = state.questions[state.currentIdx];
-    if (!q || !el.scenarioBubble) return;
-    const hint = DIM_HINTS[q.dim] || '轻轻观察一下你自己';
-    el.scenarioBubble.textContent = hint;
+    if (!q) return;
+    el.scenarioBubble.textContent = q.bubble || '';
+    if (q.avatar) {
+      el.scenarioAvatar.src = q.avatar;
+      el.scenarioAvatar.alt = '';
+    }
+    // Replay pop animation
+    if (el.scenarioAvatarBox) {
+      el.scenarioAvatarBox.classList.remove('pop');
+      // eslint-disable-next-line no-unused-expressions
+      el.scenarioAvatarBox.offsetHeight;
+      el.scenarioAvatarBox.classList.add('pop');
+    }
   }
 
   function renderQuestion() {
     const q = state.questions[state.currentIdx];
     if (!q) return;
-
     el.qText.textContent = q.text || '';
 
-    // Read previously-selected answer for this question (for back-nav)
-    const prevAnswer = state.answers[state.currentIdx];
+    const prev = state.answers[state.currentIdx];
 
     el.optionsList.innerHTML = '';
     (q.options || []).forEach((opt, i) => {
@@ -216,9 +240,7 @@
       li.setAttribute('role', 'button');
       li.setAttribute('tabindex', '0');
       li.dataset.score = String(opt.score);
-
-      if (prevAnswer && prevAnswer.score === opt.score) li.classList.add('selected');
-
+      if (prev && prev.score === opt.score) li.classList.add('selected');
       li.innerHTML =
         '<span class="option-bullet" aria-hidden="true">' + String.fromCharCode(65 + i) + '</span>' +
         '<span class="option-label"></span>';
@@ -236,71 +258,82 @@
 
       el.optionsList.appendChild(li);
     });
-
-    el.quizCard.classList.remove('leaving', 'entering');
   }
 
   function onSelectOption(node, score) {
     if (state.isAnimating) return;
+    state.isAnimating = true;
 
-    // mark selected (single-select)
-    [...el.optionsList.children].forEach(c => c.classList.remove('selected'));
-    node.classList.add('selected');
+    // clear others, flash clicked
+    [...el.optionsList.children].forEach(c => {
+      c.classList.remove('selected', 'flashing');
+    });
+    node.classList.add('flashing');
 
     // record answer
     const q = state.questions[state.currentIdx];
     state.answers[state.currentIdx] = { id: q.id, dim: q.dim, score: score };
 
-    updateNavButtons();
+    setTimeout(function () {
+      node.classList.remove('flashing');
+      node.classList.add('selected');
+
+      // auto-advance (or finish)
+      setTimeout(function () {
+        if (state.currentIdx < state.questions.length - 1) {
+          animateTo(+1);
+        } else {
+          state.isAnimating = false;
+          computeResult();
+        }
+      }, NEXT_DELAY);
+    }, FLASH_MS);
   }
 
-  function continueQuiz() {
+  function previousQuestion() {
+    if (state.isAnimating || state.currentIdx === 0) return;
+    animateTo(-1);
+  }
+
+  function nextQuestion() {
     if (state.isAnimating) return;
+    // enabled only when current has an answer
     if (!state.answers[state.currentIdx]) return;
     if (state.currentIdx < state.questions.length - 1) {
-      animateToNext(+1);
+      animateTo(+1);
     } else {
       computeResult();
     }
   }
 
-  function previousQuestion() {
-    if (state.isAnimating || state.currentIdx === 0) return;
-    animateToNext(-1);
-  }
-
-  function animateToNext(direction) {
+  function animateTo(direction) {
     state.isAnimating = true;
     const card = el.quizCard;
+    const outX = direction === 1 ? -28 : 28;
+    const inX  = direction === 1 ? 28 : -28;
 
-    const outX = direction === 1 ? -32 : 32;
-    const inX  = direction === 1 ? 32 : -32;
-
-    card.style.transition = 'transform 0.28s cubic-bezier(0.16,1,0.3,1), opacity 0.28s ease';
+    card.style.transition = 'transform 0.26s cubic-bezier(0.16,1,0.3,1), opacity 0.26s ease';
     card.style.transform  = 'translateX(' + outX + 'px)';
     card.style.opacity    = '0';
 
     setTimeout(function () {
       state.currentIdx += direction;
 
-      // jump to entering position (no transition)
       card.style.transition = 'none';
       card.style.transform  = 'translateX(' + inX + 'px)';
       card.style.opacity    = '0';
 
       renderQuiz();
 
-      // force reflow to commit the jump
       // eslint-disable-next-line no-unused-expressions
       card.offsetHeight;
 
-      card.style.transition = 'transform 0.28s cubic-bezier(0.16,1,0.3,1), opacity 0.28s ease';
+      card.style.transition = 'transform 0.26s cubic-bezier(0.16,1,0.3,1), opacity 0.26s ease';
       card.style.transform  = 'translateX(0)';
       card.style.opacity    = '1';
 
       setTimeout(function () {
         state.isAnimating = false;
-        // cleanup inline styles so CSS classes take over
         card.style.transition = '';
         card.style.transform  = '';
         card.style.opacity    = '';
@@ -309,18 +342,13 @@
   }
 
   function updateNavButtons() {
-    // Back arrow: enabled when not at first question
     el.btnPrev.disabled = state.currentIdx === 0;
-
-    // Continue button: enabled when current question has an answer
     const hasAnswer = !!state.answers[state.currentIdx];
-    el.btnContinue.disabled = !hasAnswer;
-
-    // Label: change to "查看结果" on last question
     const isLast = state.currentIdx === state.questions.length - 1;
-    el.btnContinue.innerHTML = isLast
-      ? '查看结果<span class="btn-arrow" aria-hidden="true">→</span>'
-      : '继续<span class="btn-arrow" aria-hidden="true">→</span>';
+    el.btnNext.disabled = !hasAnswer;
+    // Label adjusts on last question
+    const nextLabel = el.btnNext.querySelector('span');
+    if (nextLabel) nextLabel.textContent = isLast ? '看结果' : '下一题';
   }
 
   // ------------------------------------------------------------
@@ -333,17 +361,17 @@
       const idx = DIM_IDX[a.dim];
       if (typeof idx === 'number') userVec[idx] += a.score;
     });
+    state.userVec = userVec;
 
-    let best = null;
-    let bestDist = Infinity;
+    let best = null, bestDist = Infinity;
     state.cats.forEach(function (cat) {
       const vec = Array.isArray(cat.vector) ? cat.vector : [0, 0, 0, 0];
-      let sum = 0;
+      let s = 0;
       for (let i = 0; i < 4; i++) {
         const d = (vec[i] || 0) - userVec[i];
-        sum += d * d;
+        s += d * d;
       }
-      const dist = Math.sqrt(sum);
+      const dist = Math.sqrt(s);
       if (dist < bestDist) { bestDist = dist; best = cat; }
     });
 
@@ -360,21 +388,18 @@
     el.resultImage.src = cat.image || '';
     el.resultImage.alt = cat.name || '';
 
-    el.resultName.textContent   = cat.name || '';
-    el.resultSlogan.textContent = cat.slogan || '';
+    el.resultNameTitle.textContent = cat.name_title || '';
+    el.resultName.textContent      = cat.name || '';
+    el.resultSlogan.textContent    = cat.slogan || '';
 
-    // Quote bubble: use first sentence of interpretation; main text shows the rest
+    // first sentence → quote; rest → body
     const interp = cat.interpretation || '';
-    const firstSentMatch = interp.match(/^[^。！？\n]*[。！？]/);
-    let quoteText = '';
-    let bodyText  = interp;
-    if (firstSentMatch) {
-      quoteText = firstSentMatch[0];
-      bodyText  = interp.slice(firstSentMatch[0].length).trim();
-    } else {
-      quoteText = cat.slogan || '';
-    }
-    el.resultQuote.textContent = quoteText;
+    const m = interp.match(/^[^。！？\n]*[。！？]/);
+    let quote = '', body = interp;
+    if (m) { quote = m[0]; body = interp.slice(m[0].length).trim(); }
+    else   { quote = cat.slogan || ''; }
+    el.resultQuote.textContent = quote;
+    el.resultInterpretation.textContent = body || cat.interpretation || '';
 
     el.resultTags.innerHTML = '';
     (cat.tags || []).forEach(function (t) {
@@ -384,14 +409,119 @@
       el.resultTags.appendChild(span);
     });
 
-    el.resultInterpretation.textContent = bodyText || cat.interpretation || '';
+    // Draw radar chart
+    drawRadar(el.radarCanvas, state.userVec);
 
+    // reset share/download button state
     el.btnShare.classList.remove('is-copied');
     el.btnShare.textContent = '复制分享链接';
+    el.btnDownload.disabled = false;
   }
 
   // ------------------------------------------------------------
-  // Share & Restart
+  // Radar chart
+  // Input: canvas, 4-dim vector in [-4, +4]
+  // Maps to 0-100 score per axis for visual intuition.
+  // ------------------------------------------------------------
+  function drawRadar(canvas, vector) {
+    if (!canvas || !canvas.getContext) return;
+    const dpr = window.devicePixelRatio || 1;
+    const logicalSize = 320;           // CSS size
+    canvas.width  = logicalSize * dpr;
+    canvas.height = logicalSize * dpr;
+    canvas.style.width  = logicalSize + 'px';
+    canvas.style.height = logicalSize + 'px';
+
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, logicalSize, logicalSize);
+
+    const cx = logicalSize / 2;
+    const cy = logicalSize / 2;
+    const r  = Math.min(cx, cy) - 48;
+    const axisCount = 4;
+
+    // Normalize [-4, +4] → [0, 1]
+    const norm = vector.map(v => Math.max(0, Math.min(1, (v + 4) / 8)));
+
+    // Angles: start top, go clockwise
+    const angleFor = (i) => (-Math.PI / 2) + (i * 2 * Math.PI / axisCount);
+
+    // 1) Grid polygons at 25/50/75/100
+    ctx.strokeStyle = '#D5D5D5';
+    ctx.lineWidth = 1;
+    [0.25, 0.5, 0.75, 1].forEach(scale => {
+      ctx.beginPath();
+      for (let i = 0; i < axisCount; i++) {
+        const a = angleFor(i);
+        const x = cx + Math.cos(a) * r * scale;
+        const y = cy + Math.sin(a) * r * scale;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.stroke();
+    });
+
+    // 2) Axes lines
+    ctx.strokeStyle = '#D5D5D5';
+    for (let i = 0; i < axisCount; i++) {
+      const a = angleFor(i);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+      ctx.stroke();
+    }
+
+    // 3) User polygon
+    ctx.fillStyle = 'rgba(26, 26, 26, 0.12)';
+    ctx.strokeStyle = '#1A1A1A';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i < axisCount; i++) {
+      const a = angleFor(i);
+      const x = cx + Math.cos(a) * r * norm[i];
+      const y = cy + Math.sin(a) * r * norm[i];
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // 4) User points
+    ctx.fillStyle = '#1A1A1A';
+    for (let i = 0; i < axisCount; i++) {
+      const a = angleFor(i);
+      const x = cx + Math.cos(a) * r * norm[i];
+      const y = cy + Math.sin(a) * r * norm[i];
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 5) Labels + percentage
+    ctx.fillStyle = '#1A1A1A';
+    ctx.font = '600 14px -apple-system, "PingFang SC", "Noto Sans SC", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (let i = 0; i < axisCount; i++) {
+      const a = angleFor(i);
+      const labelDist = r + 26;
+      const lx = cx + Math.cos(a) * labelDist;
+      const ly = cy + Math.sin(a) * labelDist;
+      ctx.fillStyle = '#1A1A1A';
+      ctx.fillText(DIM_LABELS[i], lx, ly - 8);
+
+      ctx.fillStyle = '#8A8A8A';
+      ctx.font = '400 12px -apple-system, sans-serif';
+      ctx.fillText(Math.round(norm[i] * 100) + '%', lx, ly + 8);
+      ctx.font = '600 14px -apple-system, "PingFang SC", "Noto Sans SC", sans-serif';
+    }
+  }
+
+  // ------------------------------------------------------------
+  // Share / Restart
   // ------------------------------------------------------------
   async function shareLink() {
     const url = location.href;
@@ -407,24 +537,20 @@
       catch (_) { el.btnShare.textContent = '复制失败 · 请手动复制'; }
     }
   }
-
   function legacyCopy(text) {
     const ta = document.createElement('textarea');
     ta.value = text;
     ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
+    ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
   }
-
   function showCopied() {
     el.btnShare.classList.add('is-copied');
     el.btnShare.textContent = '已复制 ✓';
     clearTimeout(showCopied._t);
-    showCopied._t = setTimeout(function () {
+    showCopied._t = setTimeout(() => {
       el.btnShare.classList.remove('is-copied');
       el.btnShare.textContent = '复制分享链接';
     }, 2000);
@@ -435,8 +561,86 @@
     state.currentIdx = 0;
     state.answers = [];
     state.result = null;
+    state.userVec = [0, 0, 0, 0];
     state.isAnimating = false;
     render();
+  }
+
+  // ------------------------------------------------------------
+  // Download result card as PNG
+  // Uses html-to-image library (loaded via CDN in index.html).
+  // ------------------------------------------------------------
+  async function downloadCard() {
+    const cat = state.result;
+    if (!cat) return;
+
+    // populate share card content
+    el.scAvatar.src = cat.image || '';
+    el.scNameTitle.textContent = cat.name_title || '';
+    el.scName.textContent      = cat.name || '';
+    el.scSlogan.textContent    = cat.slogan || '';
+    el.scTags.innerHTML = '';
+    (cat.tags || []).forEach(t => {
+      const div = document.createElement('div');
+      div.className = 'sc-tag';
+      div.textContent = t;
+      el.scTags.appendChild(div);
+    });
+    drawRadar(el.scRadar, state.userVec);
+
+    // Wait for avatar image to fully load before capture
+    try {
+      await waitForImage(el.scAvatar);
+    } catch (_) { /* ignore */ }
+
+    el.btnDownload.disabled = true;
+    const orig = el.btnDownload.textContent;
+    el.btnDownload.innerHTML = '<svg viewBox="0 0 24 24" class="btn-icon"><use href="#icon-download"/></svg>生成中…';
+
+    el.shareCardWrap.classList.add('visible');
+
+    try {
+      if (typeof window.htmlToImage === 'undefined') {
+        throw new Error('html-to-image not loaded');
+      }
+      const dataUrl = await window.htmlToImage.toPng(el.shareCard, {
+        pixelRatio: 2,
+        backgroundColor: '#FFFFFF'
+      });
+      downloadDataUrl(dataUrl, `catti-${cat.id}-${Date.now()}.png`);
+    } catch (err) {
+      console.error('[CATTI] download failed', err);
+      alert('生成失败，请稍后再试');
+    } finally {
+      el.shareCardWrap.classList.remove('visible');
+      el.btnDownload.disabled = false;
+      el.btnDownload.innerHTML = '<svg viewBox="0 0 24 24" class="btn-icon"><use href="#icon-download"/></svg>保存结果图';
+    }
+  }
+
+  function waitForImage(img) {
+    return new Promise((resolve, reject) => {
+      if (!img || !img.src) { resolve(); return; }
+      if (img.complete && img.naturalWidth > 0) { resolve(); return; }
+      const onLoad = () => { cleanup(); resolve(); };
+      const onErr  = () => { cleanup(); reject(new Error('img error')); };
+      function cleanup() {
+        img.removeEventListener('load', onLoad);
+        img.removeEventListener('error', onErr);
+      }
+      img.addEventListener('load', onLoad);
+      img.addEventListener('error', onErr);
+      setTimeout(() => { cleanup(); resolve(); }, 3000); // timeout guard
+    });
+  }
+
+  function downloadDataUrl(dataUrl, filename) {
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => document.body.removeChild(a), 100);
   }
 
   // ------------------------------------------------------------
