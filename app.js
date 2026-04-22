@@ -82,7 +82,6 @@
     resultName:           $('result-name'),
     resultMetaCode:       $('result-meta-code'),
     resultMetaBreed:      $('result-meta-breed'),
-    resultSlogan:         $('result-slogan'),
     resultMdValue:        $('result-md-value'),
     resultMdNote:         $('result-md-note'),
     resultNzValue:        $('result-nz-value'),
@@ -106,8 +105,8 @@
     scName:        $('sc-name'),
     scMetaCode:    $('sc-meta-code'),
     scMetaBreed:   $('sc-meta-breed'),
-    scSlogan:      $('sc-slogan'),
-    scInterpretation: $('sc-interpretation')
+    scPunchline:   $('sc-punchline'),
+    scTagsGrid:    $('sc-tags-grid')
   };
 
   // ------------------------------------------------------------
@@ -388,6 +387,7 @@
   // RESULT
   // ------------------------------------------------------------
   function computeResult() {
+    // 1. Compute userVec (radar chart + highlight %, NOT used for matching)
     const userVec = new Array(DIM_COUNT).fill(0);
     state.answers.forEach(function (a) {
       if (!a) return;
@@ -396,19 +396,62 @@
     });
     state.userVec = userVec;
 
-    let best = null, bestDist = Infinity;
-    state.cats.forEach(function (cat) {
-      const vec = Array.isArray(cat.vector) ? cat.vector : new Array(DIM_COUNT).fill(0);
-      let s = 0;
-      for (let i = 0; i < DIM_COUNT; i++) {
-        const d = (vec[i] || 0) - userVec[i];
-        s += d * d;
-      }
-      const dist = Math.sqrt(s);
-      if (dist < bestDist) { bestDist = dist; best = cat; }
+    // 2. Tag voting: count hits per cat from option.cats array
+    const hits = {};
+    const trumpHit = {};
+    state.cats.forEach(function (c) {
+      hits[c.id] = 0;
+      trumpHit[c.id] = false;
     });
 
-    state.result = best || state.cats[0];
+    state.answers.forEach(function (a, i) {
+      if (!a) return;
+      const q = state.questions[i];
+      if (!q) return;
+      const opt = (q.options || []).find(function (o) { return o.score === a.score; });
+      if (!opt) return;
+      (opt.cats || []).forEach(function (catId) {
+        if (catId in hits) hits[catId] += 1;
+      });
+      state.cats.forEach(function (c) {
+        if (c.trump && c.trump.qId === q.id && c.trump.score === a.score) {
+          trumpHit[c.id] = true;
+        }
+      });
+    });
+
+    // 3. Top hitter(s)
+    let topHit = -1;
+    state.cats.forEach(function (c) { if (hits[c.id] > topHit) topHit = hits[c.id]; });
+    const tied = state.cats.filter(function (c) { return hits[c.id] === topHit; });
+
+    let result;
+    if (tied.length === 1) {
+      result = tied[0];
+    } else {
+      // Tiebreaker 1: trump selected
+      const trumpWinners = tied.filter(function (c) { return trumpHit[c.id]; });
+      const pool = trumpWinners.length > 0 ? trumpWinners : tied;
+      if (pool.length === 1) {
+        result = pool[0];
+      } else {
+        // Tiebreaker 2: smallest euclidean distance (last-resort)
+        let best = pool[0], bestDist = Infinity;
+        pool.forEach(function (cat) {
+          const vec = Array.isArray(cat.vector) ? cat.vector : new Array(DIM_COUNT).fill(0);
+          let s = 0;
+          for (let j = 0; j < DIM_COUNT; j++) {
+            const d = (vec[j] || 0) - userVec[j];
+            s += d * d;
+          }
+          const dist = Math.sqrt(s);
+          if (dist < bestDist) { bestDist = dist; best = cat; }
+        });
+        result = best;
+      }
+    }
+
+    state.result = result || state.cats[0];
     state.isAnimating = false;
     state.view = 'result';
     render();
@@ -426,16 +469,10 @@
     el.resultName.textContent      = cat.name || '';
     el.resultMetaCode.textContent  = cat.name_title || '';
     el.resultMetaBreed.textContent = cat.breed || '';
-    el.resultSlogan.textContent    = cat.slogan || '';
 
-    // first sentence → quote; rest → body
-    const interp = cat.interpretation || '';
-    const m = interp.match(/^[^。！？\n]*[。！？]/);
-    let quote = '', body = interp;
-    if (m) { quote = m[0]; body = interp.slice(m[0].length).trim(); }
-    else   { quote = cat.slogan || ''; }
-    el.resultQuote.textContent = quote;
-    el.resultInterpretation.textContent = body || cat.interpretation || '';
+    // The quote block now shows the cat's first-person punchline
+    el.resultQuote.textContent = cat.punchline || cat.slogan || '';
+    el.resultInterpretation.textContent = cat.interpretation || '';
 
     el.resultTags.innerHTML = '';
     (cat.tags || []).forEach(function (t) {
@@ -645,8 +682,18 @@
     el.scName.textContent        = cat.name || '';
     el.scMetaCode.textContent    = cat.name_title || '';
     el.scMetaBreed.textContent   = cat.breed || '';
-    el.scSlogan.textContent      = cat.slogan || '';
-    el.scInterpretation.textContent = cat.interpretation || '';
+    if (el.scPunchline) el.scPunchline.textContent = cat.punchline || cat.slogan || '';
+
+    // Render first 6 tags into share card (3 per row × 2 rows)
+    if (el.scTagsGrid) {
+      el.scTagsGrid.innerHTML = '';
+      (cat.tags || []).slice(0, 6).forEach(function (t) {
+        const d = document.createElement('div');
+        d.className = 'sc-tag-item';
+        d.textContent = t;
+        el.scTagsGrid.appendChild(d);
+      });
+    }
 
     // reset inline image state
     el.shareImage.style.display = 'none';

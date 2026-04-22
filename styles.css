@@ -97,23 +97,22 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 }
 .scroll-row {
   display: flex;
-  gap: 10px;
+  gap: 14px;
   width: max-content;
-  margin-bottom: 10px;
-  animation: scrollLoop 42s linear infinite;
+  margin-bottom: 8px;
+  animation: scrollLoop 22s linear infinite;
   will-change: transform;
 }
-.scroll-row:nth-of-type(2) { animation-duration: 52s; }
-.scroll-row:nth-of-type(3) { animation-duration: 48s; }
+.scroll-row:nth-of-type(2) { animation-duration: 28s; }
+.scroll-row:nth-of-type(3) { animation-duration: 25s; }
 .scroll-row.scroll-reverse { animation-direction: reverse; }
 .scroll-row:last-child { margin-bottom: 0; }
 
 .scroll-row .pet {
   flex-shrink: 0;
-  width: 60px; height: 60px;
-  border-radius: 14px;
-  background: var(--surface);
-  padding: 7px;
+  width: 96px; height: 96px;
+  background: transparent;
+  padding: 0;
   display: grid; place-items: center;
 }
 .scroll-row .pet img {
@@ -233,41 +232,25 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   font-weight: 900;
 }
 
-/* Stats row — 15 · 4 · 24 */
-.intro-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 6px;
-}
-.stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  min-width: 52px;
-}
-.stat-num {
-  font-family: var(--font-pixel);
-  font-size: clamp(22px, 6vw, 26px);
+/* Intro slogan — 封面金句 */
+.intro-slogan {
+  font-size: clamp(15px, 4.2vw, 17px);
   color: var(--text);
-  line-height: 1;
-  text-shadow: 2px 2px 0 var(--accent);
-  -webkit-font-smoothing: none;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin-top: 6px;
+  padding: 6px 16px;
+  position: relative;
 }
-.stat-label {
-  font-size: 11px;
-  color: var(--text-secondary);
-  letter-spacing: 0.08em;
-  margin-top: 4px;
-}
-.stat-dot {
-  width: 4px; height: 4px;
-  background: var(--text-tertiary);
-  border-radius: 1px;
-  align-self: center;
-  margin-top: 2px;
+.intro-slogan::before,
+.intro-slogan::after {
+  content: "·";
+  color: var(--accent);
+  font-weight: 900;
+  margin: 0 8px;
+  font-size: 20px;
+  vertical-align: middle;
 }
 
 .intro-hint {
@@ -1024,43 +1007,52 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   opacity: 1;
 }
 
+/* Share card · 9:16 portrait · single column · neobrutalism */
 .share-card {
   width: 720px;
-  padding: 56px 52px;
+  height: 1280px;
   background: #FFFFFF;
   font-family: var(--font-body);
   color: var(--text);
   box-sizing: border-box;
+  padding: 40px 44px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  overflow: hidden;
 }
 
-.share-card .sc-header {
+.share-card .sc-brand {
   display: flex;
-  justify-content: space-between;
   align-items: baseline;
-  border-bottom: 2px solid var(--text);
-  padding-bottom: 18px;
-  margin-bottom: 36px;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 .share-card .sc-logo {
   font-family: var(--font-pixel);
-  font-size: 44px;
+  font-size: 46px;
   color: var(--text);
   letter-spacing: 0.04em;
   text-shadow: 3px 3px 0 var(--accent);
 }
 .share-card .sc-tagline {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-secondary);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  font-weight: 600;
 }
 
 .share-card .sc-avatar-wrap {
-  width: 280px;
-  height: 280px;
-  margin: 0 auto 24px;
-  background: var(--surface);
-  border-radius: 36px;
-  padding: 24px;
+  width: 360px;
+  height: 360px;
+  margin: 6px auto 8px;
+  background: #FFFFFF;
+  border: 2px solid var(--text);
+  box-shadow: 6px 6px 0 var(--accent);
+  border-radius: 30px;
+  padding: 10px;
   box-sizing: border-box;
   display: grid; place-items: center;
 }
@@ -1070,76 +1062,190 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   image-rendering: pixelated;
 }
 
-.share-card .sc-meta { text-align: center; margin-bottom: 36px; }
 .share-card .sc-preamble {
-  font-size: 18px;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-  letter-spacing: 0.04em;
+  display: inline-block;
+  background: var(--text);
+  color: #FFFFFF;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.12em;
+  box-shadow: 2px 2px 0 var(--accent);
+  margin-top: 4px;
 }
 .share-card .sc-name {
-  font-size: 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  gap: 8px;
+  margin-top: 4px;
+}
+.share-card #sc-name-title {
+  font-family: var(--font-pixel);
+  font-size: 44px;
+  color: var(--text);
+  text-shadow: 3px 3px 0 var(--accent);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.share-card #sc-name {
+  font-size: 24px;
   font-weight: 900;
   color: var(--text);
-  margin-bottom: 14px;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.01em;
 }
+
 .share-card .sc-meta-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin: 0 auto 18px;
-  padding: 14px 0;
-  max-width: 420px;
-  border-top: 1px solid #E8E8E8;
-  border-bottom: 1px solid #E8E8E8;
+  gap: 4px;
+  margin: 8px auto 0;
+  padding: 12px 18px;
+  background: #FFFFFF;
+  border: 2px solid var(--text);
+  box-shadow: 3px 3px 0 var(--text);
+  border-radius: 12px;
+  max-width: 320px;
 }
 .share-card .sc-meta-row {
   display: flex;
   justify-content: center;
   align-items: baseline;
-  gap: 14px;
-  font-size: 17px;
+  gap: 12px;
+  font-size: 15px;
   margin: 0;
 }
 .share-card .sc-meta-row dt {
-  color: #999;
-  letter-spacing: 0.06em;
-  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }
 .share-card .sc-meta-row dd {
   margin: 0;
-  color: #333;
-  font-weight: 600;
-}
-.share-card .sc-slogan {
-  font-size: 20px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  line-height: 1.5;
+  color: var(--text);
+  font-weight: 700;
 }
 
-.share-card .sc-interpretation {
-  background: var(--surface);
-  border-radius: 18px;
-  padding: 28px 28px;
-  margin-bottom: 36px;
+.share-card .sc-slogan {
   font-size: 20px;
-  line-height: 1.85;
   color: var(--text);
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 4px 0;
+}
+
+.share-card .sc-punchline-block {
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid var(--text);
+  box-shadow: 5px 5px 0 var(--accent);
+  border-radius: 16px;
+  padding: 22px 26px;
+  text-align: left;
+  box-sizing: border-box;
+}
+.share-card .sc-punchline-label {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--text);
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.12em;
+  box-shadow: 2px 2px 0 var(--text);
+  margin-bottom: 12px;
+}
+.share-card .sc-punchline {
+  margin: 0;
+  font-size: 26px;
+  color: var(--text);
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  position: relative;
+  padding-left: 32px;
+}
+.share-card .sc-punchline::before {
+  content: "“";
+  position: absolute;
+  left: 0; top: -8px;
+  font-size: 50px;
+  color: var(--accent);
+  font-family: serif;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.share-card .sc-tags-block {
+  width: 100%;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 2px solid var(--text);
+  box-shadow: 5px 5px 0 var(--text);
+  border-radius: 16px;
+  padding: 18px 20px 20px;
+  text-align: left;
+}
+.share-card .sc-tags-label {
+  display: inline-block;
+  background: var(--text);
+  color: #FFFFFF;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+}
+.share-card .sc-tags-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.share-card .sc-tag-item {
+  background: var(--accent);
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+  box-shadow: 2px 2px 0 var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
 }
 
 .share-card .sc-footer {
-  text-align: center;
-  padding-top: 24px;
-  border-top: 2px solid var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 14px;
+  width: 100%;
+  border-top: 2px dashed var(--text);
 }
-.share-card .sc-qr-text {
-  font-size: 18px;
+.share-card .sc-url-badge {
+  background: var(--text);
+  color: #FFFFFF;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.14em;
+  box-shadow: 2px 2px 0 var(--accent);
+}
+.share-card .sc-url-text {
+  font-size: 17px;
   color: var(--text);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 

@@ -55,22 +55,7 @@
           <p class="hook-main"><span class="hook-main-pixel">CatTI</span><span class="hook-main-zh">来了</span></p>
         </div>
 
-        <div class="intro-stats" aria-label="测试规格">
-          <div class="stat">
-            <span class="stat-num">15</span>
-            <span class="stat-label">道题</span>
-          </div>
-          <span class="stat-dot" aria-hidden="true"></span>
-          <div class="stat">
-            <span class="stat-num">4</span>
-            <span class="stat-label">维度</span>
-          </div>
-          <span class="stat-dot" aria-hidden="true"></span>
-          <div class="stat">
-            <span class="stat-num">24</span>
-            <span class="stat-label">只猫</span>
-          </div>
-        </div>
+        <p class="intro-slogan">原来我上辈子是一只猫</p>
 
         <button class="btn btn-primary btn-lg" id="btn-start" type="button">
           开始测试
@@ -143,7 +128,6 @@
             <dd id="result-meta-breed"></dd>
           </div>
         </dl>
-        <p class="result-slogan" id="result-slogan"></p>
       </div>
 
       <blockquote class="result-quote" id="result-quote"></blockquote>
@@ -212,36 +196,47 @@
 
   </main>
 
-  <!-- Hidden share card for image export (simplified: cat + name + slogan + interpretation) -->
+  <!-- Hidden share card for image export · 9:16 portrait · single column -->
   <div class="share-card-wrap" id="share-card-wrap" aria-hidden="true">
     <div class="share-card" id="share-card">
-      <div class="sc-header">
-        <div class="sc-logo">CatTi</div>
-        <div class="sc-tagline">猫格测试</div>
+      <div class="sc-brand">
+        <span class="sc-logo">CatTi</span>
+        <span class="sc-tagline">· 2026 猫格测试 ·</span>
       </div>
+
       <div class="sc-avatar-wrap">
         <img id="sc-avatar" src="" alt="">
       </div>
-      <div class="sc-meta">
-        <div class="sc-preamble">你的本命猫是</div>
-        <div class="sc-name">
-          <span id="sc-name-title"></span><span id="sc-name"></span>
-        </div>
-        <dl class="sc-meta-list">
-          <div class="sc-meta-row">
-            <dt>代号</dt>
-            <dd id="sc-meta-code"></dd>
-          </div>
-          <div class="sc-meta-row">
-            <dt>品种原型</dt>
-            <dd id="sc-meta-breed"></dd>
-          </div>
-        </dl>
-        <div class="sc-slogan" id="sc-slogan"></div>
+
+      <div class="sc-preamble">你的本命猫是</div>
+      <div class="sc-name">
+        <span id="sc-name-title"></span><span id="sc-name"></span>
       </div>
-      <div class="sc-interpretation" id="sc-interpretation"></div>
+
+      <dl class="sc-meta-list">
+        <div class="sc-meta-row">
+          <dt>代号</dt>
+          <dd id="sc-meta-code"></dd>
+        </div>
+        <div class="sc-meta-row">
+          <dt>品种原型</dt>
+          <dd id="sc-meta-breed"></dd>
+        </div>
+      </dl>
+
+      <div class="sc-punchline-block">
+        <div class="sc-punchline-label">猫的一句台词</div>
+        <blockquote class="sc-punchline" id="sc-punchline"></blockquote>
+      </div>
+
+      <div class="sc-tags-block">
+        <div class="sc-tags-label">我身上的标签</div>
+        <div class="sc-tags-grid" id="sc-tags-grid"></div>
+      </div>
+
       <div class="sc-footer">
-        <div class="sc-qr-text">在 catti.pages.dev 测一测你的猫格</div>
+        <span class="sc-url-badge">SCAN</span>
+        <span class="sc-url-text">kittyti.pages.dev · 测测你的猫格</span>
       </div>
     </div>
   </div>
