@@ -3,63 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="theme-color" content="#FDF8F2">
+  <meta name="theme-color" content="#FFFFFF">
   <meta name="description" content="CATTI 猫格测试 · 15道题找到你的本命猫">
   <meta property="og:title" content="CATTI · 猫格测试">
   <meta property="og:description" content="15道题，找到你的本命猫">
   <meta property="og:type" content="website">
   <title>CATTI · 猫格测试</title>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cg%20fill%3D%22%23F4A880%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2238%22%20r%3D%2212%22/%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2222%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2222%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2238%22%20r%3D%224%22/%3E%3Ccircle%20cx%3D%2254%22%20cy%3D%2238%22%20r%3D%224%22/%3E%3C/g%3E%3C/svg%3E">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22%231A1A1A%22%20d%3D%22M3%203h2v2H3zm8%200h2v2h-2zM3%205h2v2H3zm2%200h6v6H5zm6%200h2v2h-2zM5%2011h6v2H5z%22/%3E%3C/svg%3E">
 
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Decorative background (paws / yarn) -->
-  <div class="bg-deco" aria-hidden="true">
-    <svg class="deco deco-paw deco-paw-1" viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
-    <svg class="deco deco-paw deco-paw-2" viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
-    <svg class="deco deco-paw deco-paw-3" viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
-    <svg class="deco deco-fish deco-fish-1" viewBox="0 0 64 32"><use href="#icon-fish"/></svg>
-    <svg class="deco deco-yarn deco-yarn-1" viewBox="0 0 64 64"><use href="#icon-yarn"/></svg>
-  </div>
-
-  <!-- Reusable SVG defs -->
+  <!-- Reusable pixel cat SVG (used as default avatar) -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-      <symbol id="icon-paw" viewBox="0 0 64 64">
-        <g fill="currentColor">
-          <ellipse cx="32" cy="40" rx="14" ry="12"/>
-          <ellipse cx="14" cy="26" rx="6" ry="8"/>
-          <ellipse cx="50" cy="26" rx="6" ry="8"/>
-          <ellipse cx="22" cy="14" rx="5" ry="7"/>
-          <ellipse cx="42" cy="14" rx="5" ry="7"/>
+      <symbol id="icon-pixel-cat" viewBox="0 0 16 16">
+        <g shape-rendering="crispEdges">
+          <rect x="2" y="3" width="2" height="1" fill="#1A1A1A"/>
+          <rect x="5" y="3" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="10" y="3" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="12" y="3" width="2" height="1" fill="#1A1A1A"/>
+          <rect x="2" y="4" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="3" y="4" width="3" height="1" fill="#F4A06B"/>
+          <rect x="6" y="4" width="4" height="1" fill="#1A1A1A"/>
+          <rect x="10" y="4" width="3" height="1" fill="#F4A06B"/>
+          <rect x="13" y="4" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="3" y="5" width="10" height="1" fill="#F4A06B"/>
+          <rect x="13" y="5" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="2" y="6" width="1" height="1" fill="#F4A06B"/>
+          <rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="4" y="6" width="1" height="1" fill="#FFFFFF"/>
+          <rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="6" y="6" width="4" height="1" fill="#F4A06B"/>
+          <rect x="10" y="6" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="11" y="6" width="1" height="1" fill="#FFFFFF"/>
+          <rect x="12" y="6" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="13" y="6" width="1" height="1" fill="#F4A06B"/>
+          <rect x="14" y="6" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="1" y="7" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="2" y="7" width="12" height="1" fill="#F4A06B"/>
+          <rect x="14" y="7" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="1" y="8" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="2" y="8" width="4" height="1" fill="#F4A06B"/>
+          <rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="7" y="8" width="2" height="1" fill="#FFC2A0"/>
+          <rect x="9" y="8" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="10" y="8" width="4" height="1" fill="#F4A06B"/>
+          <rect x="14" y="8" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="2" y="9" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="3" y="9" width="4" height="1" fill="#F4A06B"/>
+          <rect x="7" y="9" width="2" height="1" fill="#1A1A1A"/>
+          <rect x="9" y="9" width="4" height="1" fill="#F4A06B"/>
+          <rect x="13" y="9" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="2" y="10" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="3" y="10" width="10" height="1" fill="#F4A06B"/>
+          <rect x="13" y="10" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="3" y="11" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="4" y="11" width="8" height="1" fill="#F4A06B"/>
+          <rect x="12" y="11" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="3" y="12" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="4" y="12" width="2" height="1" fill="#F4A06B"/>
+          <rect x="6" y="12" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="7" y="12" width="2" height="1" fill="#F4A06B"/>
+          <rect x="9" y="12" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="10" y="12" width="2" height="1" fill="#F4A06B"/>
+          <rect x="12" y="12" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="3" y="13" width="1" height="1" fill="#1A1A1A"/>
+          <rect x="4" y="13" width="2" height="1" fill="#1A1A1A"/>
+          <rect x="7" y="13" width="2" height="1" fill="#1A1A1A"/>
+          <rect x="10" y="13" width="2" height="1" fill="#1A1A1A"/>
         </g>
       </symbol>
-      <symbol id="icon-fish" viewBox="0 0 64 32">
-        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M4 16 L20 8 L20 24 Z"/>
-          <ellipse cx="36" cy="16" rx="18" ry="8"/>
-          <line x1="24" y1="16" x2="52" y2="16"/>
-          <line x1="28" y1="10" x2="28" y2="22"/>
-          <line x1="34" y1="8" x2="34" y2="24"/>
-          <line x1="40" y1="9" x2="40" y2="23"/>
-          <line x1="46" y1="11" x2="46" y2="21"/>
-          <circle cx="50" cy="14" r="1.2" fill="currentColor"/>
-        </g>
-      </symbol>
-      <symbol id="icon-yarn" viewBox="0 0 64 64">
-        <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-          <circle cx="32" cy="32" r="22"/>
-          <path d="M10 32 Q32 20 54 32"/>
-          <path d="M14 22 Q32 44 50 22"/>
-          <path d="M14 42 Q32 20 50 42"/>
-          <path d="M44 50 Q54 56 60 52"/>
-        </g>
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M14 6l-6 6 6 6"/>
       </symbol>
     </defs>
   </svg>
@@ -69,8 +88,8 @@
     <!-- ===================== INTRO ===================== -->
     <section class="view view-intro active" id="view-intro" aria-label="首页">
       <div class="intro-inner">
-        <div class="intro-paw-badge" aria-hidden="true">
-          <svg viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
+        <div class="pixel-avatar" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><use href="#icon-pixel-cat"/></svg>
         </div>
 
         <h1 class="title-main">
@@ -88,46 +107,61 @@
           <span class="btn-arrow" aria-hidden="true">→</span>
         </button>
 
-        <p class="intro-hint">🐾 约 2 分钟 · 结果将为你匹配 24 只猫中最相似的一只</p>
+        <p class="intro-hint">约 2 分钟 · 将为你匹配 24 只猫中最相似的一只</p>
       </div>
     </section>
 
     <!-- ===================== QUIZ ===================== -->
     <section class="view view-quiz" id="view-quiz" aria-label="题目">
       <header class="quiz-header">
-        <div class="progress-row">
-          <div class="progress-paws" id="progress-paws" role="progressbar" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1"></div>
-          <div class="progress-count"><span id="progress-current">1</span> / <span id="progress-total">15</span></div>
+        <button class="icon-btn" id="btn-prev" type="button" aria-label="上一题" disabled>
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg>
+        </button>
+        <div class="progress-count" role="progressbar" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1">
+          <span id="progress-current">1</span> / <span id="progress-total">15</span>
         </div>
-        <div class="progress-caption" id="progress-caption">🐱 小猫正在观察你…</div>
+        <div class="header-spacer" aria-hidden="true"></div>
       </header>
+
+      <div class="scenario-hint">
+        <div class="scenario-avatar" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><use href="#icon-pixel-cat"/></svg>
+        </div>
+        <div class="scenario-bubble" id="scenario-bubble">社交还是不社交，这是个问题</div>
+      </div>
 
       <div class="quiz-stage">
         <article class="quiz-card" id="quiz-card">
-          <div class="q-emoji" id="q-emoji">😺</div>
           <h2 class="q-text" id="q-text">题目加载中…</h2>
           <ul class="options" id="options-list" role="radiogroup" aria-label="选项"></ul>
         </article>
       </div>
 
       <footer class="quiz-footer">
-        <button class="btn btn-ghost" id="btn-prev" type="button" disabled>← 上一题</button>
+        <button class="btn btn-primary" id="btn-continue" type="button" disabled>
+          继续
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </button>
       </footer>
     </section>
 
     <!-- ===================== RESULT ===================== -->
     <section class="view view-result" id="view-result" aria-label="结果">
-      <p class="result-preamble">你的本命猫是</p>
-
-      <div class="result-image-wrap">
-        <div class="result-image-halo" aria-hidden="true"></div>
-        <img class="result-image" id="result-image" src="" alt="" loading="lazy">
+      <div class="result-top">
+        <div class="pixel-avatar pixel-avatar-lg" aria-hidden="true">
+          <img id="result-image" src="" alt="">
+        </div>
+        <p class="result-preamble">你的本命猫是</p>
+        <h2 class="result-name" id="result-name"></h2>
+        <p class="result-slogan" id="result-slogan"></p>
       </div>
 
-      <h2 class="result-name" id="result-name"></h2>
-      <p class="result-slogan" id="result-slogan"></p>
+      <blockquote class="result-quote" id="result-quote"></blockquote>
 
+      <h3 class="result-section-title">性格标签</h3>
       <div class="result-tags" id="result-tags"></div>
+
+      <div class="result-divider"></div>
 
       <div class="result-interpretation" id="result-interpretation"></div>
 
@@ -136,7 +170,7 @@
         <button class="btn btn-secondary" id="btn-share" type="button">复制分享链接</button>
       </div>
 
-      <p class="result-footer-note">🐾 愿你和这只猫一样，温柔又有自己的节奏。</p>
+      <p class="result-footer-note">愿你和这只猫一样，有自己的节奏。</p>
     </section>
 
   </main>
