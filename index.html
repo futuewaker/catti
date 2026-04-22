@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#FDF8F2">
+  <meta name="description" content="CATTI 猫格测试 · 15道题找到你的本命猫">
+  <meta property="og:title" content="CATTI · 猫格测试">
+  <meta property="og:description" content="15道题，找到你的本命猫">
+  <meta property="og:type" content="website">
+  <title>CATTI · 猫格测试</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cg%20fill%3D%22%23F4A880%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2238%22%20r%3D%2212%22/%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2222%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2222%22%20r%3D%226%22/%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2238%22%20r%3D%224%22/%3E%3Ccircle%20cx%3D%2254%22%20cy%3D%2238%22%20r%3D%224%22/%3E%3C/g%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Decorative background (paws / yarn) -->
+  <div class="bg-deco" aria-hidden="true">
+    <svg class="deco deco-paw deco-paw-1" viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
+    <svg class="deco deco-paw deco-paw-2" viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
+    <svg class="deco deco-paw deco-paw-3" viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
+    <svg class="deco deco-fish deco-fish-1" viewBox="0 0 64 32"><use href="#icon-fish"/></svg>
+    <svg class="deco deco-yarn deco-yarn-1" viewBox="0 0 64 64"><use href="#icon-yarn"/></svg>
+  </div>
+
+  <!-- Reusable SVG defs -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="icon-paw" viewBox="0 0 64 64">
+        <g fill="currentColor">
+          <ellipse cx="32" cy="40" rx="14" ry="12"/>
+          <ellipse cx="14" cy="26" rx="6" ry="8"/>
+          <ellipse cx="50" cy="26" rx="6" ry="8"/>
+          <ellipse cx="22" cy="14" rx="5" ry="7"/>
+          <ellipse cx="42" cy="14" rx="5" ry="7"/>
+        </g>
+      </symbol>
+      <symbol id="icon-fish" viewBox="0 0 64 32">
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 16 L20 8 L20 24 Z"/>
+          <ellipse cx="36" cy="16" rx="18" ry="8"/>
+          <line x1="24" y1="16" x2="52" y2="16"/>
+          <line x1="28" y1="10" x2="28" y2="22"/>
+          <line x1="34" y1="8" x2="34" y2="24"/>
+          <line x1="40" y1="9" x2="40" y2="23"/>
+          <line x1="46" y1="11" x2="46" y2="21"/>
+          <circle cx="50" cy="14" r="1.2" fill="currentColor"/>
+        </g>
+      </symbol>
+      <symbol id="icon-yarn" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="32" cy="32" r="22"/>
+          <path d="M10 32 Q32 20 54 32"/>
+          <path d="M14 22 Q32 44 50 22"/>
+          <path d="M14 42 Q32 20 50 42"/>
+          <path d="M44 50 Q54 56 60 52"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <main class="app" id="app">
+
+    <!-- ===================== INTRO ===================== -->
+    <section class="view view-intro active" id="view-intro" aria-label="首页">
+      <div class="intro-inner">
+        <div class="intro-paw-badge" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><use href="#icon-paw"/></svg>
+        </div>
+
+        <h1 class="title-main">
+          <span class="letter">C</span><span class="letter">A</span><span class="letter">T</span><span class="letter">T</span><span class="letter">I</span>
+        </h1>
+        <p class="title-sub">猫格测试 · 15 道题找到你的本命猫</p>
+
+        <div class="intro-copy">
+          <p>你以为你在测试，其实是一只老猫在观察你。</p>
+          <p>放松点，这里没有标准答案 —— 只有最像你的那只猫。</p>
+        </div>
+
+        <button class="btn btn-primary btn-lg" id="btn-start" type="button">
+          开始测试
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </button>
+
+        <p class="intro-hint">🐾 约 2 分钟 · 结果将为你匹配 24 只猫中最相似的一只</p>
+      </div>
+    </section>
+
+    <!-- ===================== QUIZ ===================== -->
+    <section class="view view-quiz" id="view-quiz" aria-label="题目">
+      <header class="quiz-header">
+        <div class="progress-row">
+          <div class="progress-paws" id="progress-paws" role="progressbar" aria-valuemin="1" aria-valuemax="15" aria-valuenow="1"></div>
+          <div class="progress-count"><span id="progress-current">1</span> / <span id="progress-total">15</span></div>
+        </div>
+        <div class="progress-caption" id="progress-caption">🐱 小猫正在观察你…</div>
+      </header>
+
+      <div class="quiz-stage">
+        <article class="quiz-card" id="quiz-card">
+          <div class="q-emoji" id="q-emoji">😺</div>
+          <h2 class="q-text" id="q-text">题目加载中…</h2>
+          <ul class="options" id="options-list" role="radiogroup" aria-label="选项"></ul>
+        </article>
+      </div>
+
+      <footer class="quiz-footer">
+        <button class="btn btn-ghost" id="btn-prev" type="button" disabled>← 上一题</button>
+      </footer>
+    </section>
+
+    <!-- ===================== RESULT ===================== -->
+    <section class="view view-result" id="view-result" aria-label="结果">
+      <p class="result-preamble">你的本命猫是</p>
+
+      <div class="result-image-wrap">
+        <div class="result-image-halo" aria-hidden="true"></div>
+        <img class="result-image" id="result-image" src="" alt="" loading="lazy">
+      </div>
+
+      <h2 class="result-name" id="result-name"></h2>
+      <p class="result-slogan" id="result-slogan"></p>
+
+      <div class="result-tags" id="result-tags"></div>
+
+      <div class="result-interpretation" id="result-interpretation"></div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" id="btn-restart" type="button">再测一次</button>
+        <button class="btn btn-secondary" id="btn-share" type="button">复制分享链接</button>
+      </div>
+
+      <p class="result-footer-note">🐾 愿你和这只猫一样，温柔又有自己的节奏。</p>
+    </section>
+
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
