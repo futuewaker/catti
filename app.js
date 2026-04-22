@@ -59,7 +59,7 @@
       result: $('view-result')
     },
     // intro
-    introGallery: $('intro-gallery'),
+    scrollRows: [$('scroll-row-1'), $('scroll-row-2'), $('scroll-row-3')],
     btnStart:     $('btn-start'),
     // quiz
     btnHome:         $('btn-home'),
@@ -83,18 +83,21 @@
     resultTags:           $('result-tags'),
     resultInterpretation: $('result-interpretation'),
     radarCanvas:          $('radar-canvas'),
-    btnDownload:          $('btn-download'),
     btnRestart:           $('btn-restart'),
     btnShare:             $('btn-share'),
-    // share card
+    // inline share image
+    shareImageFrame:       $('share-image-frame'),
+    shareImagePlaceholder: $('share-image-placeholder'),
+    shareImage:            $('share-image'),
+    shareHint:             $('share-hint'),
+    // hidden share card
     shareCardWrap: $('share-card-wrap'),
     shareCard:     $('share-card'),
     scAvatar:      $('sc-avatar'),
     scNameTitle:   $('sc-name-title'),
     scName:        $('sc-name'),
     scSlogan:      $('sc-slogan'),
-    scTags:        $('sc-tags'),
-    scRadar:       $('sc-radar')
+    scInterpretation: $('sc-interpretation')
   };
 
   // ------------------------------------------------------------
@@ -127,19 +130,40 @@
   }
 
   // ------------------------------------------------------------
-  // Intro pet gallery (3 representative cats)
+  // Intro marquee (3 rows of scrolling pixel cats)
+  // Each row contains all 24 cats × 2 for seamless -50% loop.
   // ------------------------------------------------------------
   function renderIntroGallery() {
-    if (!el.introGallery) return;
-    const picks = ['calico', 'orange', 'black_cat'];
-    el.introGallery.innerHTML = '';
-    picks.forEach(id => {
-      const cat = state.cats.find(c => c.id === id);
-      const src = cat ? cat.image : ('images/' + id + '.png');
-      const div = document.createElement('div');
-      div.className = 'pet';
-      div.innerHTML = '<img src="' + src + '" alt="">';
-      el.introGallery.appendChild(div);
+    if (!el.scrollRows || !el.scrollRows.every(Boolean)) return;
+    const ids = state.cats.map(c => c.id);
+    if (!ids.length) return;
+
+    // Shuffle helper (stable per session)
+    const shuffle = (arr) => {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    const third = Math.ceil(ids.length / 3);
+    const groups = [
+      shuffle(ids).slice(0, third + 2),
+      shuffle(ids).slice(0, third + 2),
+      shuffle(ids).slice(0, third + 2)
+    ];
+
+    el.scrollRows.forEach((row, i) => {
+      if (!row) return;
+      // duplicate the list so a -50% translate wraps seamlessly
+      const list = groups[i].concat(groups[i]);
+      row.innerHTML = list.map(id => {
+        const cat = state.cats.find(c => c.id === id);
+        const src = cat ? cat.image : ('images/' + id + '.png');
+        return '<div class="pet"><img src="' + src + '" alt=""></div>';
+      }).join('');
     });
   }
 
@@ -153,7 +177,6 @@
     el.btnNext     && el.btnNext.addEventListener('click',  nextQuestion);
     el.btnRestart  && el.btnRestart.addEventListener('click', restart);
     el.btnShare    && el.btnShare.addEventListener('click',  shareLink);
-    el.btnDownload && el.btnDownload.addEventListener('click', downloadCard);
   }
 
   // ------------------------------------------------------------
@@ -412,10 +435,12 @@
     // Draw radar chart
     drawRadar(el.radarCanvas, state.userVec);
 
-    // reset share/download button state
+    // reset share button state
     el.btnShare.classList.remove('is-copied');
     el.btnShare.textContent = '复制分享链接';
-    el.btnDownload.disabled = false;
+
+    // Auto-generate inline share image (non-blocking)
+    generateShareImage();
   }
 
   // ------------------------------------------------------------
@@ -567,36 +592,34 @@
   }
 
   // ------------------------------------------------------------
-  // Download result card as PNG
-  // Uses html-to-image library (loaded via CDN in index.html).
+  // Auto-generate inline share image (simplified card, no tags/radar)
+  // Uses html-to-image via CDN. Image displays inline so users can
+  // long-press to save on mobile or right-click on desktop.
   // ------------------------------------------------------------
-  async function downloadCard() {
+  async function generateShareImage() {
     const cat = state.result;
     if (!cat) return;
 
-    // populate share card content
+    // populate simplified share card
     el.scAvatar.src = cat.image || '';
-    el.scNameTitle.textContent = cat.name_title || '';
-    el.scName.textContent      = cat.name || '';
-    el.scSlogan.textContent    = cat.slogan || '';
-    el.scTags.innerHTML = '';
-    (cat.tags || []).forEach(t => {
-      const div = document.createElement('div');
-      div.className = 'sc-tag';
-      div.textContent = t;
-      el.scTags.appendChild(div);
-    });
-    drawRadar(el.scRadar, state.userVec);
+    el.scNameTitle.textContent   = cat.name_title || '';
+    el.scName.textContent        = cat.name || '';
+    el.scSlogan.textContent      = cat.slogan || '';
+    el.scInterpretation.textContent = cat.interpretation || '';
 
-    // Wait for avatar image to fully load before capture
-    try {
-      await waitForImage(el.scAvatar);
-    } catch (_) { /* ignore */ }
+    // reset inline image state
+    el.shareImage.style.display = 'none';
+    el.shareImage.src = '';
+    if (el.shareImagePlaceholder) {
+      el.shareImagePlaceholder.style.display = '';
+      el.shareImagePlaceholder.innerHTML =
+        '<div class="spinner"></div><p>正在生成你的专属结果图…</p>';
+    }
 
-    el.btnDownload.disabled = true;
-    const orig = el.btnDownload.textContent;
-    el.btnDownload.innerHTML = '<svg viewBox="0 0 24 24" class="btn-icon"><use href="#icon-download"/></svg>生成中…';
+    // Wait for avatar image to fully load
+    try { await waitForImage(el.scAvatar); } catch (_) {}
 
+    // Need to move the card off-screen but still rendered (not display:none)
     el.shareCardWrap.classList.add('visible');
 
     try {
@@ -605,42 +628,32 @@
       }
       const dataUrl = await window.htmlToImage.toPng(el.shareCard, {
         pixelRatio: 2,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        cacheBust: true
       });
-      downloadDataUrl(dataUrl, `catti-${cat.id}-${Date.now()}.png`);
+      el.shareImage.src = dataUrl;
+      el.shareImage.style.display = 'block';
+      el.shareImage.dataset.filename = 'catti-' + cat.id + '-' + Date.now() + '.png';
+      if (el.shareImagePlaceholder) el.shareImagePlaceholder.style.display = 'none';
     } catch (err) {
-      console.error('[CATTI] download failed', err);
-      alert('生成失败，请稍后再试');
+      console.error('[CATTI] share image generation failed', err);
+      if (el.shareImagePlaceholder) {
+        el.shareImagePlaceholder.innerHTML = '<p class="share-image-error">结果图生成失败，请刷新重试</p>';
+      }
     } finally {
       el.shareCardWrap.classList.remove('visible');
-      el.btnDownload.disabled = false;
-      el.btnDownload.innerHTML = '<svg viewBox="0 0 24 24" class="btn-icon"><use href="#icon-download"/></svg>保存结果图';
     }
   }
 
   function waitForImage(img) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (!img || !img.src) { resolve(); return; }
       if (img.complete && img.naturalWidth > 0) { resolve(); return; }
-      const onLoad = () => { cleanup(); resolve(); };
-      const onErr  = () => { cleanup(); reject(new Error('img error')); };
-      function cleanup() {
-        img.removeEventListener('load', onLoad);
-        img.removeEventListener('error', onErr);
-      }
-      img.addEventListener('load', onLoad);
-      img.addEventListener('error', onErr);
-      setTimeout(() => { cleanup(); resolve(); }, 3000); // timeout guard
+      const done = () => { img.removeEventListener('load', done); img.removeEventListener('error', done); resolve(); };
+      img.addEventListener('load', done);
+      img.addEventListener('error', done);
+      setTimeout(done, 3000);
     });
-  }
-
-  function downloadDataUrl(dataUrl, filename) {
-    const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => document.body.removeChild(a), 100);
   }
 
   // ------------------------------------------------------------

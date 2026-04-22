@@ -39,8 +39,12 @@
     <!-- ===================== INTRO ===================== -->
     <section class="view view-intro active" id="view-intro" aria-label="首页">
       <div class="intro-inner">
-        <!-- pixel pet gallery -->
-        <div class="intro-gallery" aria-hidden="true" id="intro-gallery"></div>
+        <!-- 3-row scrolling pixel pet marquee -->
+        <div class="intro-scroll" aria-hidden="true">
+          <div class="scroll-row" id="scroll-row-1"></div>
+          <div class="scroll-row scroll-reverse" id="scroll-row-2"></div>
+          <div class="scroll-row" id="scroll-row-3"></div>
+        </div>
 
         <h1 class="title-pixel">CatTi</h1>
         <p class="title-sub">· 猫格测试 · 15 道题找到你的本命猫</p>
@@ -119,21 +123,31 @@
       <h3 class="result-section-title">性格标签</h3>
       <div class="result-tags" id="result-tags"></div>
 
-      <h3 class="result-section-title">维度分析</h3>
-      <div class="radar-wrap">
-        <canvas id="radar-canvas" width="600" height="600" aria-label="维度雷达图"></canvas>
-      </div>
-
       <div class="result-divider"></div>
 
       <h3 class="result-section-title">喵格解读</h3>
       <div class="result-interpretation" id="result-interpretation"></div>
 
+      <h3 class="result-section-title">维度分析</h3>
+      <div class="radar-wrap">
+        <canvas id="radar-canvas" width="600" height="600" aria-label="维度雷达图"></canvas>
+      </div>
+
+      <h3 class="result-section-title">保存 / 分享</h3>
+      <div class="share-image-block">
+        <div class="share-image-frame" id="share-image-frame">
+          <div class="share-image-placeholder" id="share-image-placeholder">
+            <div class="spinner"></div>
+            <p>正在生成你的专属结果图…</p>
+          </div>
+          <img class="share-image" id="share-image" src="" alt="结果图" style="display:none">
+        </div>
+        <p class="share-hint" id="share-hint">
+          📱 手机端长按图片即可保存 · 💻 电脑端右键另存为
+        </p>
+      </div>
+
       <div class="result-actions">
-        <button class="btn btn-primary" id="btn-download" type="button">
-          <svg viewBox="0 0 24 24" class="btn-icon"><use href="#icon-download"/></svg>
-          保存结果图
-        </button>
         <button class="btn btn-secondary" id="btn-share" type="button">复制分享链接</button>
         <button class="btn btn-ghost" id="btn-restart" type="button">再测一次</button>
       </div>
@@ -143,7 +157,7 @@
 
   </main>
 
-  <!-- Hidden share card for image export -->
+  <!-- Hidden share card for image export (simplified: cat + name + slogan + interpretation) -->
   <div class="share-card-wrap" id="share-card-wrap" aria-hidden="true">
     <div class="share-card" id="share-card">
       <div class="sc-header">
@@ -160,10 +174,7 @@
         </div>
         <div class="sc-slogan" id="sc-slogan"></div>
       </div>
-      <div class="sc-tags" id="sc-tags"></div>
-      <div class="sc-radar-wrap">
-        <canvas id="sc-radar" width="400" height="400"></canvas>
-      </div>
+      <div class="sc-interpretation" id="sc-interpretation"></div>
       <div class="sc-footer">
         <div class="sc-qr-text">在 catti.pages.dev 测一测你的猫格</div>
       </div>

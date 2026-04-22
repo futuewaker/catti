@@ -86,31 +86,49 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   gap: 14px;
 }
 
-/* pixel pet gallery (3 cats in a row) */
-.intro-gallery {
+/* 3-row scrolling pixel pet marquee */
+.intro-scroll {
+  width: calc(100% + 44px);
+  margin: 0 -22px 16px;
+  overflow: hidden;
+  /* soft fade on edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+.scroll-row {
   display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 8px;
+  gap: 10px;
+  width: max-content;
+  margin-bottom: 10px;
+  animation: scrollLoop 42s linear infinite;
+  will-change: transform;
 }
-.intro-gallery .pet {
-  width: 72px; height: 72px;
-  border-radius: 18px;
+.scroll-row:nth-of-type(2) { animation-duration: 52s; }
+.scroll-row:nth-of-type(3) { animation-duration: 48s; }
+.scroll-row.scroll-reverse { animation-direction: reverse; }
+.scroll-row:last-child { margin-bottom: 0; }
+
+.scroll-row .pet {
+  flex-shrink: 0;
+  width: 60px; height: 60px;
+  border-radius: 14px;
   background: var(--surface);
-  padding: 10px;
+  padding: 7px;
   display: grid; place-items: center;
-  animation: petBob 2.6s ease-in-out infinite;
 }
-.intro-gallery .pet:nth-child(1) { animation-delay: 0s; }
-.intro-gallery .pet:nth-child(2) { animation-delay: 0.3s; transform: translateY(-4px); }
-.intro-gallery .pet:nth-child(3) { animation-delay: 0.6s; }
-.intro-gallery .pet img {
-  width: 100%; height: 100%; object-fit: contain;
+.scroll-row .pet img {
+  width: 100%; height: 100%;
+  object-fit: contain;
   image-rendering: pixelated;
 }
-@keyframes petBob {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-6px); }
+
+@keyframes scrollLoop {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-row { animation: none; }
 }
 
 /* BIG pixel title "CatTi" */
@@ -544,6 +562,66 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   image-rendering: auto;
 }
 
+/* Inline share image block */
+.share-image-block {
+  margin-bottom: 28px;
+}
+.share-image-frame {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 12px;
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.share-image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-align: center;
+}
+.share-image-placeholder p { margin: 0; }
+.spinner {
+  width: 28px; height: 28px;
+  border: 2px solid var(--border);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.share-image-error {
+  color: var(--text-secondary);
+  font-size: 13px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.share-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  /* hint for long-press save on iOS */
+  -webkit-touch-callout: default;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.share-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
 .result-divider {
   height: 1px;
   background: var(--border);
@@ -653,42 +731,20 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   line-height: 1.5;
 }
 
-.share-card .sc-tags {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-bottom: 36px;
-}
-.share-card .sc-tag {
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 18px 16px;
-  text-align: center;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.4;
-  min-height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.share-card .sc-radar-wrap {
-  display: grid;
-  place-items: center;
+.share-card .sc-interpretation {
   background: var(--surface);
   border-radius: 18px;
-  padding: 24px;
+  padding: 28px 28px;
   margin-bottom: 36px;
-}
-.share-card .sc-radar-wrap canvas {
-  width: 360px;
-  height: 360px;
+  font-size: 20px;
+  line-height: 1.85;
+  color: var(--text);
+  letter-spacing: 0.01em;
 }
 
 .share-card .sc-footer {
   text-align: center;
-  padding-top: 28px;
+  padding-top: 24px;
   border-top: 2px solid var(--text);
 }
 .share-card .sc-qr-text {
