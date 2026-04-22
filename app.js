@@ -158,6 +158,11 @@
         const src = cat ? cat.image : ('images/' + id + '.png');
         return '<div class="pet"><img src="' + src + '" alt=""></div>';
       }).join('');
+      // Set explicit pixel width so iOS Safari animates reliably.
+      // Without this, `width: max-content` can compute as 0 during layout
+      // and break the scrollLoop on 1st/3rd rows (observed on mobile).
+      const PET = 96, GAP = 14;
+      row.style.width = (list.length * PET + (list.length - 1) * GAP) + 'px';
     });
   }
 

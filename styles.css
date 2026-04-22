@@ -97,15 +97,16 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 }
 .scroll-row {
   display: flex;
+  flex-wrap: nowrap;
   gap: 14px;
-  width: max-content;
   margin-bottom: 8px;
   animation: scrollLoop 22s linear infinite;
-  will-change: transform;
+  animation-fill-mode: both;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
-.scroll-row:nth-of-type(2) { animation-duration: 28s; }
-.scroll-row:nth-of-type(3) { animation-duration: 25s; }
-.scroll-row.scroll-reverse { animation-direction: reverse; }
+#scroll-row-2 { animation-duration: 28s; animation-direction: reverse; }
+#scroll-row-3 { animation-duration: 25s; }
 .scroll-row:last-child { margin-bottom: 0; }
 
 .scroll-row .pet {
@@ -133,7 +134,7 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 /* BIG pixel title "CatTi" */
 .title-pixel {
   font-family: var(--font-pixel);
-  font-size: 70px;
+  font-size: 65px;
   color: var(--text);
   letter-spacing: 0.06em;
   line-height: 1;
