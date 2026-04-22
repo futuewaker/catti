@@ -132,22 +132,12 @@
     const ids = state.cats.map(c => c.id);
     if (!ids.length) return;
 
-    // Shuffle helper (stable per session)
-    const shuffle = (arr) => {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    };
-
-    const third = Math.ceil(ids.length / 3);
-    const groups = [
-      shuffle(ids).slice(0, third + 2),
-      shuffle(ids).slice(0, third + 2),
-      shuffle(ids).slice(0, third + 2)
-    ];
+    // Fixed deterministic split: 24 cats interleaved into 3 rows
+    // Row 1 gets indices 0,3,6…; Row 2 gets 1,4,7…; Row 3 gets 2,5,8…
+    // This gives each row 8 unique cats with visual variety across rows,
+    // and the same arrangement every session for a stable animation.
+    const groups = [[], [], []];
+    ids.forEach((id, idx) => groups[idx % 3].push(id));
 
     el.scrollRows.forEach((row, i) => {
       if (!row) return;
