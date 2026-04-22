@@ -736,17 +736,19 @@
     // Wait for avatar image to fully load
     try { await waitForImage(el.scAvatar); } catch (_) {}
 
-    // Need to move the card off-screen but still rendered (not display:none)
+    // Make card visible in-layout (not far off-screen) so mobile browsers
+    // actually paint it before html-to-image reads pixels.
     el.shareCardWrap.classList.add('visible');
+    // One animation frame to let layout + paint settle on mobile Safari.
+    await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
 
     try {
       if (typeof window.htmlToImage === 'undefined') {
         throw new Error('html-to-image not loaded');
       }
       const dataUrl = await window.htmlToImage.toPng(el.shareCard, {
-        pixelRatio: 2,
-        backgroundColor: '#FFFFFF',
-        cacheBust: true
+        pixelRatio: 1.5,
+        backgroundColor: '#FFFFFF'
       });
       el.shareImage.src = dataUrl;
       el.shareImage.style.display = 'block';

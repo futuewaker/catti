@@ -1078,14 +1078,16 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
    ========================================================== */
 .share-card-wrap {
   position: fixed;
-  left: -9999px;
+  left: 0;
   top: 0;
   pointer-events: none;
   opacity: 0;
+  z-index: -1;
+  visibility: hidden;
 }
 .share-card-wrap.visible {
-  left: auto; right: -9999px;
   opacity: 1;
+  visibility: visible;
 }
 
 /* Share card · 9:16 portrait · single column · neobrutalism */
@@ -1145,7 +1147,7 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 .share-card .sc-avatar-wrap img {
   width: 100%; height: 100%;
   object-fit: contain;
-  image-rendering: pixelated;
+  image-rendering: auto;
 }
 
 .share-card .sc-preamble {
