@@ -153,23 +153,8 @@
       <h3 class="result-section-title">口头禅</h3>
       <div class="result-catchphrases" id="result-catchphrases"></div>
 
-      <h3 class="result-section-title">带走你的本命猫</h3>
-      <div class="save-card">
-        <div class="share-image-frame" id="share-image-frame">
-          <div class="share-image-placeholder" id="share-image-placeholder">
-            <div class="spinner"></div>
-            <p>正在生成你的专属结果图…</p>
-          </div>
-          <img class="share-image" id="share-image" src="" alt="结果图" style="display:none">
-        </div>
-        <div class="save-card-hint">
-          <span class="save-card-hint-row">📱 手机长按图片保存</span>
-          <span class="save-card-hint-row">💻 电脑右键另存为</span>
-        </div>
-        <button class="btn btn-primary save-card-btn" id="btn-share" type="button">复制分享链接</button>
-      </div>
-
       <div class="result-actions">
+        <button class="btn btn-primary" id="btn-share" type="button">复制分享链接</button>
         <button class="btn btn-ghost" id="btn-restart" type="button">再测一次</button>
       </div>
 
@@ -191,47 +176,6 @@
 
   </main>
 
-  <!-- Hidden share card for image export · 9:16 portrait · single column -->
-  <div class="share-card-wrap" id="share-card-wrap" aria-hidden="true">
-    <div class="share-card" id="share-card">
-      <div class="sc-brand sc-brand-corner">
-        <span class="sc-logo">CatTi</span>
-        <span class="sc-tagline">· 2026 猫格测试 ·</span>
-      </div>
-
-      <div class="sc-avatar-wrap">
-        <img id="sc-avatar" src="" alt="">
-      </div>
-
-      <div class="sc-preamble">你的本命猫是</div>
-      <div class="sc-name">
-        <span id="sc-name-title"></span><span id="sc-name"></span>
-      </div>
-
-      <div class="sc-punchline-block">
-        <div class="sc-punchline-label">猫的一句台词</div>
-        <blockquote class="sc-punchline" id="sc-punchline"></blockquote>
-      </div>
-
-      <div class="sc-tags-block">
-        <div class="sc-tags-label">性格标签</div>
-        <div class="sc-tags-grid" id="sc-tags-grid"></div>
-      </div>
-
-      <div class="sc-quick-review-block">
-        <div class="sc-quick-review-label">喵格速评</div>
-        <div class="sc-quick-review" id="sc-quick-review"></div>
-      </div>
-
-      <div class="sc-footer">
-        <span class="sc-url-badge">SCAN</span>
-        <span class="sc-url-text">kittyti.pages.dev · 测测你的猫格</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- html-to-image via CDN, for download result image -->
-  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>

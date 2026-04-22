@@ -91,21 +91,7 @@
     resultCatchphrases:   $('result-catchphrases'),
     radarCanvas:          $('radar-canvas'),
     btnRestart:           $('btn-restart'),
-    btnShare:             $('btn-share'),
-    // inline share image
-    shareImageFrame:       $('share-image-frame'),
-    shareImagePlaceholder: $('share-image-placeholder'),
-    shareImage:            $('share-image'),
-    shareHint:             $('share-hint'),
-    // hidden share card
-    shareCardWrap: $('share-card-wrap'),
-    shareCard:     $('share-card'),
-    scAvatar:      $('sc-avatar'),
-    scNameTitle:   $('sc-name-title'),
-    scName:        $('sc-name'),
-    scPunchline:   $('sc-punchline'),
-    scTagsGrid:    $('sc-tags-grid'),
-    scQuickReview: $('sc-quick-review')
+    btnShare:             $('btn-share')
   };
 
   // ------------------------------------------------------------
@@ -504,9 +490,6 @@
     // reset share button state
     el.btnShare.classList.remove('is-copied');
     el.btnShare.textContent = '复制分享链接';
-
-    // Auto-generate inline share image (non-blocking)
-    generateShareImage();
   }
 
   // ------------------------------------------------------------
@@ -673,113 +656,6 @@
     state.userVec = [0, 0, 0, 0];
     state.isAnimating = false;
     render();
-  }
-
-  // ------------------------------------------------------------
-  // Auto-generate inline share image (simplified card, no tags/radar)
-  // Uses html-to-image via CDN. Image displays inline so users can
-  // long-press to save on mobile or right-click on desktop.
-  // ------------------------------------------------------------
-  // Convert a (local) image URL to a data URL so html-to-image can reliably
-  // capture it on mobile browsers (Safari sometimes misses <img> that hasn't
-  // been fully decoded even when img.complete is true).
-  async function imageToDataUrl(src) {
-    if (!src) return '';
-    if (src.startsWith('data:')) return src;
-    try {
-      const res = await fetch(src, { cache: 'force-cache' });
-      const blob = await res.blob();
-      return await new Promise((resolve, reject) => {
-        const r = new FileReader();
-        r.onloadend = () => resolve(r.result);
-        r.onerror = reject;
-        r.readAsDataURL(blob);
-      });
-    } catch (e) {
-      console.warn('[CATTI] imageToDataUrl failed, fallback to src', e);
-      return src;
-    }
-  }
-
-  async function generateShareImage() {
-    const cat = state.result;
-    if (!cat) return;
-
-    // Pre-embed avatar as a data URL for mobile reliability
-    const avatarDataUrl = await imageToDataUrl(cat.image || '');
-    el.scAvatar.src = avatarDataUrl;
-    el.scNameTitle.textContent   = cat.name_title ? cat.name_title + ' ' : '';
-    el.scName.textContent        = cat.name || '';
-    if (el.scPunchline) el.scPunchline.textContent = cat.punchline || cat.slogan || '';
-    if (el.scQuickReview) el.scQuickReview.textContent = cat.quick_review || '';
-
-    // Render first 4 tags into share card (2 per row × 2 rows) — matches result page
-    if (el.scTagsGrid) {
-      el.scTagsGrid.innerHTML = '';
-      (cat.tags || []).slice(0, 4).forEach(function (t) {
-        const d = document.createElement('div');
-        d.className = 'sc-tag-item';
-        d.textContent = t;
-        el.scTagsGrid.appendChild(d);
-      });
-    }
-
-    // reset inline image state
-    el.shareImage.style.display = 'none';
-    el.shareImage.src = '';
-    if (el.shareImagePlaceholder) {
-      el.shareImagePlaceholder.style.display = '';
-      el.shareImagePlaceholder.innerHTML =
-        '<div class="spinner"></div><p>正在生成你的专属结果图…</p>';
-    }
-
-    // Wait for avatar image to fully load
-    try { await waitForImage(el.scAvatar); } catch (_) {}
-
-    // Make card visible in-layout (not far off-screen) so mobile browsers
-    // actually paint it before html-to-image reads pixels.
-    el.shareCardWrap.classList.add('visible');
-    // One animation frame to let layout + paint settle on mobile Safari.
-    await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
-
-    try {
-      if (typeof window.htmlToImage === 'undefined') {
-        throw new Error('html-to-image not loaded');
-      }
-      const dataUrl = await window.htmlToImage.toPng(el.shareCard, {
-        pixelRatio: 1.5,
-        backgroundColor: '#FFFFFF'
-      });
-      el.shareImage.src = dataUrl;
-      el.shareImage.style.display = 'block';
-      el.shareImage.dataset.filename = 'catti-' + cat.id + '-' + Date.now() + '.png';
-      if (el.shareImagePlaceholder) el.shareImagePlaceholder.style.display = 'none';
-    } catch (err) {
-      console.error('[CATTI] share image generation failed', err);
-      if (el.shareImagePlaceholder) {
-        el.shareImagePlaceholder.innerHTML = '<p class="share-image-error">结果图生成失败，请刷新重试</p>';
-      }
-    } finally {
-      el.shareCardWrap.classList.remove('visible');
-    }
-  }
-
-  function waitForImage(img) {
-    return new Promise((resolve) => {
-      if (!img || !img.src) { resolve(); return; }
-      const decodeThenResolve = () => {
-        if (typeof img.decode === 'function') {
-          img.decode().then(resolve).catch(() => resolve());
-        } else {
-          resolve();
-        }
-      };
-      if (img.complete && img.naturalWidth > 0) { decodeThenResolve(); return; }
-      const done = () => { img.removeEventListener('load', done); img.removeEventListener('error', done); decodeThenResolve(); };
-      img.addEventListener('load', done);
-      img.addEventListener('error', done);
-      setTimeout(resolve, 3000);
-    });
   }
 
   // ------------------------------------------------------------
