@@ -962,6 +962,175 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 }
 .save-card-hint-row { white-space: nowrap; }
 .save-card-btn { width: 100%; }
+
+/* one-click long screenshot */
+.btn-icon {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 18px;
+  vertical-align: -2px;
+}
+.result-capturing .result-actions,
+.result-capturing .xhs-promo,
+.result-capturing .result-footer-note {
+  display: none !important;
+}
+.result-capturing.view-result,
+.result-capturing.view {
+  background: #FFF8EE !important;
+  flex: 0 0 auto !important;
+  min-height: 0 !important;
+  padding: 36px 32px 36px !important;
+}
+
+/* QR code block (shown in long screenshot too) */
+.result-qr-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg);
+  border: 2px solid var(--text);
+  box-shadow: 5px 5px 0 var(--accent);
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 22px;
+}
+.result-qr-wrap {
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
+  background: #FFF;
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  padding: 6px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 0 var(--text);
+}
+.result-qr {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  display: block;
+}
+.result-qr-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.result-qr-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.result-qr-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.result-qr-tag {
+  display: inline-block;
+  width: fit-content;
+  margin-top: 4px;
+  background: var(--accent);
+  border: 1.5px solid var(--text);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+/* save modal (iOS long-press fallback) */
+.save-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.save-modal.visible { display: flex; }
+.save-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+}
+.save-modal-inner {
+  position: relative;
+  background: var(--bg);
+  border: 3px solid var(--text);
+  box-shadow: 6px 6px 0 var(--text);
+  border-radius: 18px;
+  padding: 18px;
+  max-width: 420px;
+  width: 100%;
+  max-height: 92vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.save-modal-hint {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--accent);
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  padding: 8px 12px;
+  letter-spacing: 0.02em;
+}
+.save-modal-img-wrap {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  background: #FFF;
+  max-height: 70vh;
+}
+.save-modal-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  -webkit-touch-callout: default;
+  touch-action: pan-y;
+}
+#btn-save-close { width: 100%; }
+.save-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  flex-direction: column;
+  gap: 14px;
+}
+.save-loading.visible { display: flex; }
+.save-loading-inner {
+  background: var(--bg);
+  border: 2px solid var(--text);
+  box-shadow: 4px 4px 0 var(--accent);
+  border-radius: 14px;
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+.save-loading-inner .spinner {
+  width: 32px;
+  height: 32px;
+}
 .share-image-frame {
   background: var(--bg);
   border: 2px solid var(--text);

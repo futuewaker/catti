@@ -91,7 +91,14 @@
     resultCatchphrases:   $('result-catchphrases'),
     radarCanvas:          $('radar-canvas'),
     btnRestart:           $('btn-restart'),
-    btnShare:             $('btn-share')
+    btnShare:             $('btn-share'),
+    btnSaveLong:          $('btn-save-long'),
+    saveLoading:          $('save-loading'),
+    saveModal:            $('save-modal'),
+    saveModalBackdrop:    $('save-modal-backdrop'),
+    saveModalImg:         $('save-modal-img'),
+    btnSaveClose:         $('btn-save-close'),
+    viewResult:           $('view-result')
   };
 
   // ------------------------------------------------------------
@@ -166,6 +173,9 @@
     el.btnNext     && el.btnNext.addEventListener('click',  nextQuestion);
     el.btnRestart  && el.btnRestart.addEventListener('click', restart);
     el.btnShare    && el.btnShare.addEventListener('click',  shareLink);
+    el.btnSaveLong && el.btnSaveLong.addEventListener('click', saveLongScreenshot);
+    el.btnSaveClose && el.btnSaveClose.addEventListener('click', closeSaveModal);
+    el.saveModalBackdrop && el.saveModalBackdrop.addEventListener('click', closeSaveModal);
   }
 
   // ------------------------------------------------------------
@@ -651,6 +661,148 @@
     state.userVec = [0, 0, 0, 0];
     state.isAnimating = false;
     render();
+  }
+
+  // ------------------------------------------------------------
+  // One-click long screenshot (iOS + Android + Desktop)
+  // 1) Try Web Share API Level 2 (iOS 15+, Android Chrome) → native save sheet
+  // 2) Android/Desktop fallback: trigger blob download
+  // 3) iOS fallback: show image in modal, user long-presses to save
+  // ------------------------------------------------------------
+  const HTML2IMG_CDN = 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js';
+  let _html2imgLoading = null;
+  function ensureHtmlToImage() {
+    if (window.htmlToImage) return Promise.resolve();
+    if (_html2imgLoading) return _html2imgLoading;
+    _html2imgLoading = new Promise(function (resolve, reject) {
+      const s = document.createElement('script');
+      s.src = HTML2IMG_CDN;
+      s.onload = function () { resolve(); };
+      s.onerror = function () { _html2imgLoading = null; reject(new Error('html-to-image load failed')); };
+      document.head.appendChild(s);
+    });
+    return _html2imgLoading;
+  }
+
+  async function embedImagesAsDataUrl(root) {
+    const imgs = root.querySelectorAll('img');
+    await Promise.all(Array.from(imgs).map(async function (img) {
+      const src = img.getAttribute('src');
+      if (!src || src.startsWith('data:')) return;
+      try {
+        const res = await fetch(src, { cache: 'force-cache' });
+        const blob = await res.blob();
+        const dataUrl = await new Promise(function (resolve, reject) {
+          const r = new FileReader();
+          r.onloadend = function () { resolve(r.result); };
+          r.onerror = reject;
+          r.readAsDataURL(blob);
+        });
+        img.src = dataUrl;
+        if (typeof img.decode === 'function') { try { await img.decode(); } catch (_) {} }
+      } catch (e) {
+        console.warn('[CATTI] embed img fail, keep original', src, e);
+      }
+    }));
+  }
+
+  function showSaveLoading(show) {
+    if (!el.saveLoading) return;
+    el.saveLoading.classList.toggle('visible', !!show);
+  }
+  function openSaveModal(dataUrl) {
+    if (!el.saveModal || !el.saveModalImg) return;
+    el.saveModalImg.src = dataUrl;
+    el.saveModal.classList.add('visible');
+    el.saveModal.setAttribute('aria-hidden', 'false');
+  }
+  function closeSaveModal() {
+    if (!el.saveModal) return;
+    el.saveModal.classList.remove('visible');
+    el.saveModal.setAttribute('aria-hidden', 'true');
+    if (el.saveModalImg) el.saveModalImg.src = '';
+  }
+
+  async function saveLongScreenshot() {
+    const cat = state.result;
+    if (!cat || !el.viewResult) return;
+    if (el.btnSaveLong.disabled) return;
+
+    const originalLabel = el.btnSaveLong.innerHTML;
+    el.btnSaveLong.disabled = true;
+    el.btnSaveLong.textContent = '生成中…';
+    showSaveLoading(true);
+
+    // Hide buttons/footer during capture
+    el.viewResult.classList.add('result-capturing');
+
+    try {
+      await ensureHtmlToImage();
+      await embedImagesAsDataUrl(el.viewResult);
+      // two frames to let layout settle after src rewrites
+      await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
+
+      const pixelRatio = (window.devicePixelRatio && window.devicePixelRatio > 1) ? 2 : 1;
+      const blob = await window.htmlToImage.toBlob(el.viewResult, {
+        pixelRatio: pixelRatio,
+        backgroundColor: '#FFF8EE',
+        skipFonts: false
+      });
+      if (!blob) throw new Error('toBlob returned null');
+
+      const filename = 'catti-' + cat.id + '-' + Date.now() + '.png';
+      const file = new File([blob], filename, { type: 'image/png' });
+
+      // Path 1: native share (iOS 15+, Android Chrome, most desktop browsers)
+      let shared = false;
+      try {
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'CATTI · 猫格测试',
+            text: '我的本命猫是 ' + (cat.name_title || '') + ' ' + (cat.name || '')
+          });
+          shared = true;
+        }
+      } catch (e) {
+        if (e && e.name === 'AbortError') { shared = true; /* user cancelled, ok */ }
+        else console.warn('[CATTI] share API failed, falling back', e);
+      }
+
+      if (!shared) {
+        const ua = (navigator.userAgent || '').toLowerCase();
+        const isIOS = /iphone|ipad|ipod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const dataUrl = await new Promise(function (resolve, reject) {
+          const r = new FileReader();
+          r.onloadend = function () { resolve(r.result); };
+          r.onerror = reject;
+          r.readAsDataURL(blob);
+        });
+
+        if (isIOS) {
+          // Path 3: iOS long-press modal
+          openSaveModal(dataUrl);
+        } else {
+          // Path 2: download (Android/Desktop)
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        }
+      }
+    } catch (err) {
+      console.error('[CATTI] long screenshot failed', err);
+      alert('截图生成失败,请稍后重试~');
+    } finally {
+      el.viewResult.classList.remove('result-capturing');
+      showSaveLoading(false);
+      el.btnSaveLong.disabled = false;
+      el.btnSaveLong.innerHTML = originalLabel;
+    }
   }
 
   // ------------------------------------------------------------

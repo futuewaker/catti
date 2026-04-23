@@ -150,8 +150,24 @@
       <h3 class="result-section-title">口头禅</h3>
       <div class="result-catchphrases" id="result-catchphrases"></div>
 
+      <!-- QR code · included in long screenshot -->
+      <div class="result-qr-block">
+        <div class="result-qr-wrap">
+          <img src="images/qr-kittyti.png" alt="扫码测 CATTI" class="result-qr">
+        </div>
+        <div class="result-qr-text">
+          <div class="result-qr-title">扫码测测你的本命猫</div>
+          <div class="result-qr-sub">CATTI · kittyti.pages.dev</div>
+          <div class="result-qr-tag">2 分钟 · 24 种喵格</div>
+        </div>
+      </div>
+
       <div class="result-actions">
-        <button class="btn btn-primary" id="btn-share" type="button">复制分享链接</button>
+        <button class="btn btn-primary" id="btn-save-long" type="button">
+          <span class="btn-icon" aria-hidden="true">📸</span>
+          一键长截图保存
+        </button>
+        <button class="btn btn-secondary" id="btn-share" type="button">复制分享链接</button>
         <button class="btn btn-ghost" id="btn-restart" type="button">再测一次</button>
       </div>
 
@@ -172,6 +188,26 @@
     </section>
 
   </main>
+
+  <!-- Save loading overlay -->
+  <div class="save-loading" id="save-loading" aria-hidden="true">
+    <div class="save-loading-inner">
+      <div class="spinner"></div>
+      <div>正在生成长图…</div>
+    </div>
+  </div>
+
+  <!-- Save modal fallback for iOS (long-press to save) -->
+  <div class="save-modal" id="save-modal" aria-hidden="true">
+    <div class="save-modal-backdrop" id="save-modal-backdrop"></div>
+    <div class="save-modal-inner">
+      <div class="save-modal-hint">📱 长按图片保存到相册</div>
+      <div class="save-modal-img-wrap">
+        <img class="save-modal-img" id="save-modal-img" src="" alt="结果图">
+      </div>
+      <button class="btn btn-ghost" id="btn-save-close" type="button">关闭</button>
+    </div>
+  </div>
 
   <script src="app.js" defer></script>
 </body>
