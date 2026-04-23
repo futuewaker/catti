@@ -982,6 +982,46 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
   min-height: 0 !important;
   padding: 36px 32px 36px !important;
 }
+/* Kill animations / force layout final state during screenshot — html2canvas
+   sometimes samples mid-animation state on mobile Safari. */
+.result-capturing .tag,
+.result-capturing .catchphrase,
+.result-capturing .pet,
+.result-capturing * {
+  animation: none !important;
+  animation-delay: 0s !important;
+  transition: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* Fallback tag layout: grid may misrender on mobile html2canvas builds.
+   Use flex + explicit widths so it doesn't collapse or overlap. */
+.result-capturing .result-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.result-capturing .tag {
+  flex: 0 0 calc(50% - 5px) !important;
+  box-sizing: border-box !important;
+}
+.result-capturing .result-catchphrases {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.result-capturing .catchphrase {
+  flex: 0 0 calc(50% - 5px) !important;
+  box-sizing: border-box !important;
+}
+.result-capturing .highlight-cards {
+  display: flex !important;
+  gap: 12px !important;
+}
+.result-capturing .highlight-card {
+  flex: 1 !important;
+  box-sizing: border-box !important;
+}
 
 /* QR code block (shown in long screenshot too) */
 .result-qr-block {
