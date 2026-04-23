@@ -977,22 +977,29 @@ img { display: block; max-width: 100%; image-rendering: pixelated; image-renderi
 }
 .result-capturing.view-result,
 .result-capturing.view {
-  background: #FFF8EE !important;
+  background: #FFFFFF !important;
   flex: 0 0 auto !important;
   min-height: 0 !important;
   padding: 36px 32px 36px !important;
 }
-/* Kill animations / force layout final state during screenshot — html2canvas
-   sometimes samples mid-animation state on mobile Safari. */
+/* Kill only the fade-in animations that may be sampled mid-flight.
+   Narrow the scope — the earlier universal `*` selector was over-aggressive
+   and broke color/opacity cascading in html2canvas on iOS. */
 .result-capturing .tag,
 .result-capturing .catchphrase,
-.result-capturing .pet,
-.result-capturing * {
+.result-capturing .pet {
   animation: none !important;
   animation-delay: 0s !important;
   transition: none !important;
   opacity: 1 !important;
   transform: none !important;
+}
+/* Force explicit black text + antialiasing parity during capture so colors
+   don't look washed out on mobile */
+.result-capturing,
+.result-capturing * {
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: auto !important;
 }
 /* Fallback tag layout: grid may misrender on mobile html2canvas builds.
    Use flex + explicit widths so it doesn't collapse or overlap. */
