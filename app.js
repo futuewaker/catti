@@ -669,19 +669,22 @@
   // 2) Android/Desktop fallback: trigger blob download
   // 3) iOS fallback: show image in modal, user long-presses to save
   // ------------------------------------------------------------
-  const HTML2IMG_CDN = 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js';
-  let _html2imgLoading = null;
-  function ensureHtmlToImage() {
-    if (window.htmlToImage) return Promise.resolve();
-    if (_html2imgLoading) return _html2imgLoading;
-    _html2imgLoading = new Promise(function (resolve, reject) {
+  // Switched from html-to-image (SVG-foreignObject pipeline, unreliable on iOS Safari)
+  // to html2canvas (direct canvas paint via CSS parse). Different rendering path,
+  // much more mature on mobile.
+  const CAPTURE_CDN = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+  let _captureLibLoading = null;
+  function ensureCaptureLib() {
+    if (window.html2canvas) return Promise.resolve();
+    if (_captureLibLoading) return _captureLibLoading;
+    _captureLibLoading = new Promise(function (resolve, reject) {
       const s = document.createElement('script');
-      s.src = HTML2IMG_CDN;
+      s.src = CAPTURE_CDN;
       s.onload = function () { resolve(); };
-      s.onerror = function () { _html2imgLoading = null; reject(new Error('html-to-image load failed')); };
+      s.onerror = function () { _captureLibLoading = null; reject(new Error('html2canvas load failed')); };
       document.head.appendChild(s);
     });
-    return _html2imgLoading;
+    return _captureLibLoading;
   }
 
   async function embedImagesAsDataUrl(root) {
@@ -804,33 +807,34 @@
 
     let restoreCanvases = function () {};
     try {
-      await ensureHtmlToImage();
+      await ensureCaptureLib();
       // Step 1: inline every <img> as data URL + wait for decode
       await embedImagesAsDataUrl(el.viewResult);
-      // Step 2: replace <canvas> (radar) with snapshot <img> — Safari fix
+      // Step 2: replace <canvas> (radar) with snapshot <img> — mobile safety
       restoreCanvases = snapshotCanvases(el.viewResult);
       // Step 3: wait for ALL imgs (including freshly-injected canvas snapshots)
       await waitAllImagesReady(el.viewResult);
       // Step 4: two animation frames to let layout settle
       await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
 
-      const pixelRatio = (window.devicePixelRatio && window.devicePixelRatio > 1) ? 2 : 1;
-      // Step 5: capture (with retry — first call on Safari often misses images)
-      let blob = null;
-      for (let attempt = 0; attempt < 3 && !blob; attempt++) {
-        if (attempt > 0) await new Promise(function (r) { setTimeout(r, 250); });
-        try {
-          blob = await window.htmlToImage.toBlob(el.viewResult, {
-            pixelRatio: pixelRatio,
-            backgroundColor: '#FFF8EE',
-            skipFonts: false,
-            cacheBust: false
-          });
-        } catch (e) {
-          console.warn('[CATTI] toBlob attempt ' + (attempt + 1) + ' failed', e);
-        }
-      }
-      if (!blob) throw new Error('toBlob returned null after 3 attempts');
+      const scale = (window.devicePixelRatio && window.devicePixelRatio > 1) ? 2 : 1;
+      // Step 5: capture via html2canvas (direct CSS-to-canvas paint, no SVG detour)
+      const canvas = await window.html2canvas(el.viewResult, {
+        backgroundColor: '#FFF8EE',
+        scale: scale,
+        useCORS: true,
+        allowTaint: false,
+        foreignObjectRendering: false,
+        logging: false,
+        imageTimeout: 8000,
+        removeContainer: true
+      });
+      const blob = await new Promise(function (resolve, reject) {
+        canvas.toBlob(function (b) {
+          if (b) resolve(b); else reject(new Error('canvas.toBlob returned null'));
+        }, 'image/png');
+      });
+      if (!blob) throw new Error('canvas toBlob returned null');
 
       const filename = 'catti-' + cat.id + '-' + Date.now() + '.png';
       const file = new File([blob], filename, { type: 'image/png' });
