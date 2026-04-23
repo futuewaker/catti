@@ -27,7 +27,8 @@
           "american_shorthair",
           "american_curl",
           "turkish_van",
-          "maine_coon"
+          "maine_coon",
+          "devon_rex"
         ]
       },
       {
@@ -39,7 +40,6 @@
           "bengal",
           "cheese",
           "abyssinian",
-          "devon_rex",
           "munchkin",
           "tuxedo"
         ]
@@ -62,10 +62,10 @@
           "persian",
           "russian_blue",
           "bengal",
-          "american_shorthair",
           "norwegian_forest",
           "black_cat",
-          "maine_coon"
+          "maine_coon",
+          "siamese"
         ]
       },
       {
@@ -82,11 +82,9 @@
         "cats": [
           "turkish_van",
           "ragdoll",
-          "scottish_fold",
-          "cheese",
           "tuxedo",
-          "siamese",
-          "sphynx"
+          "sphynx",
+          "cheese"
         ]
       }
     ]
@@ -104,7 +102,6 @@
         "score": 1,
         "cats": [
           "persian",
-          "british_shorthair",
           "american_shorthair",
           "angora",
           "bengal",
@@ -125,7 +122,6 @@
         "score": -1,
         "cats": [
           "orange",
-          "garfield",
           "cheese",
           "tuxedo",
           "devon_rex",
@@ -149,7 +145,6 @@
           "british_shorthair",
           "persian",
           "russian_blue",
-          "norwegian_forest",
           "abyssinian",
           "black_cat"
         ]
@@ -191,13 +186,10 @@
         "label": "每只老鼠都有固定窝点,谁乱放谁负责",
         "score": 1,
         "cats": [
-          "angora",
           "persian",
           "british_shorthair",
           "american_shorthair",
-          "norwegian_forest",
-          "calico",
-          "american_curl"
+          "norwegian_forest"
         ]
       },
       {
@@ -208,7 +200,9 @@
           "turkish_van",
           "russian_blue",
           "american_curl",
-          "maine_coon"
+          "maine_coon",
+          "bengal",
+          "calico"
         ]
       },
       {
@@ -216,10 +210,8 @@
         "score": -1,
         "cats": [
           "devon_rex",
-          "cheese",
-          "orange",
           "garfield",
-          "munchkin"
+          "angora"
         ]
       }
     ]
@@ -241,7 +233,6 @@
           "abyssinian",
           "turkish_van",
           "devon_rex",
-          "calico",
           "american_curl"
         ]
       },
@@ -252,7 +243,10 @@
           "american_shorthair",
           "munchkin",
           "angora",
-          "maine_coon"
+          "maine_coon",
+          "calico",
+          "garfield",
+          "persian"
         ]
       },
       {
@@ -260,10 +254,7 @@
         "score": -1,
         "cats": [
           "orange",
-          "garfield",
-          "ragdoll",
-          "persian",
-          "black_cat"
+          "ragdoll"
         ]
       }
     ]
@@ -280,10 +271,6 @@
         "label": "躲角落里演完整部《我不配》连续剧,循环自我质疑",
         "score": 1,
         "cats": [
-          "scottish_fold",
-          "russian_blue",
-          "sphynx",
-          "ragdoll",
           "golden_chinchilla",
           "angora",
           "black_cat",
@@ -296,7 +283,11 @@
         "cats": [
           "calico",
           "british_shorthair",
-          "norwegian_forest"
+          "norwegian_forest",
+          "american_curl",
+          "sphynx",
+          "ragdoll",
+          "scottish_fold"
         ]
       },
       {
@@ -309,7 +300,8 @@
           "cheese",
           "garfield",
           "bengal",
-          "devon_rex"
+          "devon_rex",
+          "american_shorthair"
         ]
       }
     ]
@@ -329,7 +321,6 @@
           "siamese",
           "sphynx",
           "ragdoll",
-          "tuxedo",
           "munchkin",
           "calico"
         ]
@@ -342,7 +333,8 @@
           "scottish_fold",
           "russian_blue",
           "golden_chinchilla",
-          "maine_coon"
+          "maine_coon",
+          "black_cat"
         ]
       },
       {
@@ -350,13 +342,11 @@
         "score": -1,
         "cats": [
           "orange",
-          "bengal",
           "persian",
           "garfield",
           "turkish_van",
           "abyssinian",
-          "british_shorthair",
-          "black_cat"
+          "british_shorthair"
         ]
       }
     ]
@@ -373,12 +363,9 @@
         "label": "蹲在门口等一整天,饭都吃不下,魂牵梦萦",
         "score": 1,
         "cats": [
-          "ragdoll",
-          "siamese",
           "sphynx",
           "munchkin",
-          "calico",
-          "scottish_fold"
+          "calico"
         ]
       },
       {
@@ -386,10 +373,11 @@
         "score": 0,
         "cats": [
           "russian_blue",
-          "angora",
           "golden_chinchilla",
           "american_shorthair",
-          "maine_coon"
+          "maine_coon",
+          "siamese",
+          "ragdoll"
         ]
       },
       {
@@ -401,7 +389,8 @@
           "bengal",
           "garfield",
           "abyssinian",
-          "black_cat"
+          "black_cat",
+          "british_shorthair"
         ]
       }
     ]
@@ -419,7 +408,6 @@
         "score": 1,
         "cats": [
           "scottish_fold",
-          "sphynx",
           "russian_blue",
           "ragdoll",
           "golden_chinchilla",
@@ -435,7 +423,9 @@
           "british_shorthair",
           "norwegian_forest",
           "black_cat",
-          "american_shorthair"
+          "american_shorthair",
+          "siamese",
+          "tuxedo"
         ]
       },
       {
@@ -446,9 +436,9 @@
           "cheese",
           "bengal",
           "garfield",
-          "tuxedo",
           "devon_rex",
-          "abyssinian"
+          "abyssinian",
+          "sphynx"
         ]
       }
     ]
@@ -465,12 +455,10 @@
         "label": "主动贴脸认亲，感觉家里人丁兴旺,我很开心",
         "score": 1,
         "cats": [
-          "siamese",
           "tuxedo",
           "sphynx",
           "cheese",
           "devon_rex",
-          "calico",
           "abyssinian"
         ]
       },
@@ -481,7 +469,9 @@
           "american_shorthair",
           "norwegian_forest",
           "turkish_van",
-          "american_curl"
+          "american_curl",
+          "siamese",
+          "bengal"
         ]
       },
       {
@@ -493,7 +483,8 @@
           "scottish_fold",
           "black_cat",
           "british_shorthair",
-          "ragdoll"
+          "ragdoll",
+          "calico"
         ]
       }
     ]
@@ -515,9 +506,9 @@
           "abyssinian",
           "turkish_van",
           "devon_rex",
-          "munchkin",
           "siamese",
-          "calico"
+          "calico",
+          "maine_coon"
         ]
       },
       {
@@ -533,10 +524,8 @@
         "label": "眼睛会跟,爪子坚决不出力",
         "score": -1,
         "cats": [
-          "persian",
           "orange",
           "garfield",
-          "ragdoll",
           "scottish_fold",
           "british_shorthair"
         ]
@@ -555,11 +544,7 @@
         "label": "使命召唤,立刻进入捕猎模式,十分钟后交作业",
         "score": 1,
         "cats": [
-          "bengal",
-          "abyssinian",
-          "norwegian_forest",
           "maine_coon",
-          "munchkin",
           "tuxedo"
         ]
       },
@@ -569,18 +554,20 @@
         "cats": [
           "russian_blue",
           "angora",
-          "turkish_van"
+          "turkish_van",
+          "american_curl",
+          "bengal",
+          "abyssinian",
+          "orange"
         ]
       },
       {
         "label": "那是人类的事,我和苍蝇无冤无仇",
         "score": -1,
         "cats": [
-          "orange",
           "garfield",
-          "persian",
           "scottish_fold",
-          "british_shorthair"
+          "munchkin"
         ]
       }
     ]
@@ -601,8 +588,7 @@
           "ragdoll",
           "sphynx",
           "angora",
-          "scottish_fold",
-          "russian_blue"
+          "scottish_fold"
         ]
       },
       {
@@ -611,7 +597,8 @@
         "cats": [
           "calico",
           "golden_chinchilla",
-          "norwegian_forest"
+          "norwegian_forest",
+          "persian"
         ]
       },
       {
@@ -619,11 +606,9 @@
         "score": -1,
         "cats": [
           "orange",
-          "bengal",
           "abyssinian",
           "garfield",
           "turkish_van",
-          "cheese",
           "black_cat"
         ]
       }
@@ -642,13 +627,12 @@
         "score": 1,
         "cats": [
           "british_shorthair",
-          "russian_blue",
           "norwegian_forest",
-          "persian",
           "american_shorthair",
           "bengal",
           "black_cat",
-          "maine_coon"
+          "maine_coon",
+          "russian_blue"
         ]
       },
       {
@@ -656,7 +640,9 @@
         "score": 0,
         "cats": [
           "american_curl",
-          "turkish_van"
+          "turkish_van",
+          "garfield",
+          "persian"
         ]
       },
       {
@@ -667,7 +653,8 @@
           "cheese",
           "munchkin",
           "ragdoll",
-          "siamese"
+          "siamese",
+          "sphynx"
         ]
       }
     ]
@@ -685,11 +672,7 @@
         "score": 1,
         "cats": [
           "persian",
-          "british_shorthair",
-          "angora",
           "norwegian_forest",
-          "bengal",
-          "scottish_fold",
           "american_curl"
         ]
       },
@@ -699,7 +682,9 @@
         "cats": [
           "american_shorthair",
           "golden_chinchilla",
-          "maine_coon"
+          "maine_coon",
+          "scottish_fold",
+          "angora"
         ]
       },
       {
@@ -708,10 +693,7 @@
         "cats": [
           "garfield",
           "orange",
-          "cheese",
-          "ragdoll",
-          "tuxedo",
-          "devon_rex"
+          "cheese"
         ]
       }
     ]
@@ -732,8 +714,7 @@
           "sphynx",
           "tuxedo",
           "cheese",
-          "devon_rex",
-          "munchkin"
+          "devon_rex"
         ]
       },
       {
@@ -743,7 +724,9 @@
           "american_curl",
           "calico",
           "turkish_van",
-          "golden_chinchilla"
+          "golden_chinchilla",
+          "abyssinian",
+          "munchkin"
         ]
       },
       {
@@ -772,14 +755,14 @@
         "label": "新粉丝!挨个巡视一波,看能否收获零食",
         "score": 1,
         "cats": [
-          "abyssinian",
           "siamese",
           "cheese",
           "tuxedo",
-          "sphynx",
           "devon_rex",
           "munchkin",
-          "calico"
+          "calico",
+          "turkish_van",
+          "persian"
         ]
       },
       {
@@ -789,14 +772,16 @@
           "norwegian_forest",
           "angora",
           "american_shorthair",
-          "golden_chinchilla"
+          "golden_chinchilla",
+          "ragdoll",
+          "sphynx",
+          "abyssinian"
         ]
       },
       {
         "label": "他们占了我的沙发,我的世界已在崩塌",
         "score": -1,
         "cats": [
-          "persian",
           "british_shorthair",
           "scottish_fold",
           "black_cat",
