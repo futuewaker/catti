@@ -690,7 +690,9 @@
       const src = img.getAttribute('src');
       if (!src || src.startsWith('data:')) return;
       try {
-        const res = await fetch(src, { cache: 'force-cache' });
+        // resolve to absolute URL (mobile Safari quirk: SVG-embedded relative paths break)
+        const abs = new URL(src, location.href).href;
+        const res = await fetch(abs, { cache: 'force-cache' });
         const blob = await res.blob();
         const dataUrl = await new Promise(function (resolve, reject) {
           const r = new FileReader();
@@ -703,6 +705,70 @@
       } catch (e) {
         console.warn('[CATTI] embed img fail, keep original', src, e);
       }
+    }));
+  }
+
+  // Mobile Safari often fails to serialize live <canvas> inside html-to-image's
+  // SVG foreignObject. Pre-snapshot to <img> and swap back after capture.
+  function snapshotCanvases(root) {
+    const swaps = [];
+    root.querySelectorAll('canvas').forEach(function (canvas) {
+      try {
+        if (!canvas.width || !canvas.height) return;
+        const dataUrl = canvas.toDataURL('image/png');
+        const img = new Image();
+        img.src = dataUrl;
+        img.alt = '';
+        img.setAttribute('aria-hidden', 'true');
+        // Copy layout sizing from the original canvas so layout doesn't shift
+        const cs = window.getComputedStyle(canvas);
+        img.style.width = cs.width;
+        img.style.height = cs.height;
+        img.style.display = cs.display === 'inline' ? 'inline-block' : (cs.display || 'block');
+        img.style.verticalAlign = 'middle';
+        const parent = canvas.parentNode;
+        const next = canvas.nextSibling;
+        parent.replaceChild(img, canvas);
+        swaps.push({ canvas: canvas, img: img, parent: parent, next: next });
+      } catch (e) {
+        console.warn('[CATTI] canvas snapshot failed', e);
+      }
+    });
+    return function restore() {
+      swaps.forEach(function (s) {
+        if (!s.img.parentNode) return;
+        if (s.next && s.next.parentNode === s.parent) {
+          s.parent.insertBefore(s.canvas, s.next);
+        } else {
+          s.parent.appendChild(s.canvas);
+        }
+        s.img.remove();
+      });
+    };
+  }
+
+  // Wait for every <img> in the tree to be load+decoded so the SVG rasterize
+  // step doesn't grab them mid-decode (Safari blanks them otherwise).
+  async function waitAllImagesReady(root) {
+    const imgs = Array.from(root.querySelectorAll('img'));
+    await Promise.all(imgs.map(function (img) {
+      const settled = (img.complete && img.naturalWidth > 0)
+        ? Promise.resolve()
+        : new Promise(function (resolve) {
+            const done = function () {
+              img.removeEventListener('load', done);
+              img.removeEventListener('error', done);
+              resolve();
+            };
+            img.addEventListener('load', done);
+            img.addEventListener('error', done);
+            setTimeout(done, 2000);
+          });
+      return settled.then(function () {
+        if (typeof img.decode === 'function') {
+          return img.decode().catch(function () {});
+        }
+      });
     }));
   }
 
@@ -736,19 +802,35 @@
     // Hide buttons/footer during capture
     el.viewResult.classList.add('result-capturing');
 
+    let restoreCanvases = function () {};
     try {
       await ensureHtmlToImage();
+      // Step 1: inline every <img> as data URL + wait for decode
       await embedImagesAsDataUrl(el.viewResult);
-      // two frames to let layout settle after src rewrites
+      // Step 2: replace <canvas> (radar) with snapshot <img> — Safari fix
+      restoreCanvases = snapshotCanvases(el.viewResult);
+      // Step 3: wait for ALL imgs (including freshly-injected canvas snapshots)
+      await waitAllImagesReady(el.viewResult);
+      // Step 4: two animation frames to let layout settle
       await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
 
       const pixelRatio = (window.devicePixelRatio && window.devicePixelRatio > 1) ? 2 : 1;
-      const blob = await window.htmlToImage.toBlob(el.viewResult, {
-        pixelRatio: pixelRatio,
-        backgroundColor: '#FFF8EE',
-        skipFonts: false
-      });
-      if (!blob) throw new Error('toBlob returned null');
+      // Step 5: capture (with retry — first call on Safari often misses images)
+      let blob = null;
+      for (let attempt = 0; attempt < 3 && !blob; attempt++) {
+        if (attempt > 0) await new Promise(function (r) { setTimeout(r, 250); });
+        try {
+          blob = await window.htmlToImage.toBlob(el.viewResult, {
+            pixelRatio: pixelRatio,
+            backgroundColor: '#FFF8EE',
+            skipFonts: false,
+            cacheBust: false
+          });
+        } catch (e) {
+          console.warn('[CATTI] toBlob attempt ' + (attempt + 1) + ' failed', e);
+        }
+      }
+      if (!blob) throw new Error('toBlob returned null after 3 attempts');
 
       const filename = 'catti-' + cat.id + '-' + Date.now() + '.png';
       const file = new File([blob], filename, { type: 'image/png' });
@@ -798,6 +880,7 @@
       console.error('[CATTI] long screenshot failed', err);
       alert('截图生成失败,请稍后重试~');
     } finally {
+      try { restoreCanvases(); } catch (_) {}
       el.viewResult.classList.remove('result-capturing');
       showSaveLoading(false);
       el.btnSaveLong.disabled = false;
